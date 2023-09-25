@@ -1,0 +1,3518 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!--    -------------------------------------------------->
+    <link rel="icon" href="https://snos.ro/media/globe.svg" type="image/x-icon"/>
+    <title>SN Visits</title>
+<!--    -------------------------------------------------->
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    
+        <script>
+            L_NO_TOUCH = false;
+            L_DISABLE_3D = false;
+        </script>
+    
+    <style>html, body {width: 100%;height: 100%;margin: 0;padding: 0;}</style>
+    <style>#map {position:absolute;top:0;bottom:0;right:0;left:0;}</style>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_3d5297916f34f5068ea24cc277149da5 {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+        
+</head>
+<body>
+<!--    -------------------------------------------------->
+<nav class="navbar">
+    <div class="container-fluid">
+        <h1 class="nav_title">Ww visits</h1>
+        <a class="logo_contact ms-auto"
+           href="https://www.linkedin.com/in/stefan-nosca-98894a234"
+           title="Contact via Linkedin">
+            <img src="https://snos.ro/media/linkedin.png" height="20rem">
+        </a>
+        <a class="logo_contact"
+           href="https://github.com/stefa2213"
+           title="See projects on Github">
+            <img src="https://snos.ro/media/gt.png" height="20rem" style="padding-left:1rem">
+        </a>
+        <a class="logo_contact"
+           href="https://api.whatsapp.com/send?phone=+40723751346&text=Hello, Stefan!"
+           title="Contact via WhatsApp">
+            <img src="https://snos.ro/media/whatsapp.png" height="20rem" style="padding-left:1rem">
+        </a>
+        <a class="logo_contact"
+           href="https://www.facebook.com/stefan.stefan.50596, Stefan!"
+           title="See Facebook profile">
+            <img src="https://snos.ro/media/facebook.png" height="20rem" >
+        </a>
+        <a class="logo_contact"
+            href="https://www.instagram.com/stefan.nos/"
+            title="See Instagram profile">
+            <img src="https://snos.ro/media/instagram.png" height="20rem">
+        </a>
+
+    </div>
+</nav>
+
+
+<style>
+
+.logo_contact{
+    padding-right: 1rem;
+    margin: 0;
+}
+
+.logo_contact:hover {
+ opacity: 0.8
+}
+
+.logo_contact:active {
+ opacity: 0.6
+}
+
+.nav_flag{
+    box-shadow: white 2px 2px 12px 1px;
+}
+
+.navbar{
+    background-color: black;
+    box-shadow: #000 6px 3px 20px 1px;
+    margin:0;
+    height:1rem;
+}
+
+.nav_title{
+    text-shadow: #AAD4E1 -2px 4px 11px;
+    font-size: 20px;
+    color: #AAD4E1;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.leaflet-control-layers-toggle {
+    box-shadow: #000 0px 23px 15px -5px;
+}
+
+.leaflet-control-zoom-in {
+    background-color: #A5D5E4;
+}
+
+.top_title {
+    white-space: nowrap;
+    color:darkblue;
+    font: bold 55px;
+    position: fixed;
+    font-size:x-large;
+    text-shadow: 0 7px 5px rgba(0,0,0,0.65);
+}
+
+.title_city {
+    white-space: nowrap;
+    color:darkblue;
+    padding: 0.1rem;
+    font: bold 15px Verdana;
+    text-shadow: 0 3px 5px rgba(0,0,0,0.65);
+
+}
+
+.last_visit {
+    color: #000;
+    padding: 0.1rem;
+    text-shadow: 0 3px 5px darkblue;
+}
+
+.leaflet-popup-content-wrapper, .leaflet-popup-tip {
+  background-color: #D5E9E5;
+  border-radius: 5%;
+  box-shadow: #000 0px 23px 15px -5px;
+}
+
+
+.img_city {
+    height: 19rem;
+    border-radius: 2%;
+}
+
+.img_flag {
+    height: 3rem;
+    margin-left: 0.5rem;
+    box-shadow: 0 4px 5px rgba(0,0,0,0.65);
+}
+
+.leaflet-container {
+	background: #A5D5E4;
+	outline-offset: 1px;
+	}
+
+
+
+
+
+
+
+
+</style>
+<!--    -------------------------------------------------->
+<style>
+
+.leaflet-tooltip{
+    background-color: transparent;
+    height: 1rem;
+    width: 2rem;
+    border-radius:5%;
+    box-shadow: #000 0px 15px 12px -5px;
+}
+
+img_flag_bottom{
+    height: 15rem;
+    border-radius:5%;
+    margin:0;
+    box-shadow: #000 0px 15px 12px -5px;
+}
+
+.leaflet-control-layers-toggle {
+    box-shadow: #000 0px 23px 15px -5px;
+}
+
+
+.top_title {
+    white-space: nowrap;
+    color:darkblue;
+    font: bold 55px;
+    position: fixed;
+    font-size:x-large;
+    text-shadow: 0 7px 5px rgba(0,0,0,0.65);
+}
+
+.title_city {
+    white-space: nowrap;
+    color:darkblue;
+    padding: 0.1rem;
+    font: bold 15px Verdana;
+    text-shadow: 0 3px 5px rgba(0,0,0,0.65);
+
+}
+
+.last_visit {
+    color: #000;
+    padding: 0.1rem;
+    text-shadow: 0 3px 5px darkblue;
+}
+
+.leaflet-popup-content-wrapper, .leaflet-popup-tip {
+  background-color: #D5E9E5;
+  margin:0;
+  opacity: 0.97;
+  border-radius: 5%;
+  box-shadow: #000 0px 23px 15px -5px;
+}
+
+.img_city {
+    height: 19rem;
+    border-radius: 2%;
+}
+
+.img_flag {
+    height: 3rem;
+    margin-left: 0.5rem;
+    box-shadow: 0 4px 5px rgba(0,0,0,0.65);
+}
+
+.leaflet-container {
+	background: #A5D5E4;
+	outline-offset: 1px;
+	}
+
+
+
+</style>
+
+    
+            <div class="folium-map" id="map_3d5297916f34f5068ea24cc277149da5" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_3d5297916f34f5068ea24cc277149da5 = L.map(
+                "map_3d5297916f34f5068ea24cc277149da5",
+                {
+                    center: [27.0, 5.0],
+                    crs: L.CRS.EPSG3857,
+                    zoom: 2.4,
+                    zoomControl: true,
+                    preferCanvas: false,
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_9b99c9bd3be77faa4a382b035d2bf4a2 = L.tileLayer(
+                "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {"attribution": "Data by \u0026copy; \u003ca target=\"_blank\" href=\"http://openstreetmap.org\"\u003eOpenStreetMap\u003c/a\u003e, under \u003ca target=\"_blank\" href=\"http://www.openstreetmap.org/copyright\"\u003eODbL\u003c/a\u003e.", "detectRetina": false, "maxNativeZoom": 18, "maxZoom": 18, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
+            ).addTo(map_3d5297916f34f5068ea24cc277149da5);
+        
+    
+            var tile_layer_e5080ce249dddd28129af32a98bb093f = L.tileLayer(
+                "https://stamen-tiles-{s}.a.ssl.fastly.net/terrain/{z}/{x}/{y}.jpg",
+                {"attribution": "Map tiles by \u003ca target=\"_blank\" href=\"http://stamen.com\"\u003eStamen Design\u003c/a\u003e, under \u003ca target=\"_blank\" href=\"http://creativecommons.org/licenses/by/3.0\"\u003eCC BY 3.0\u003c/a\u003e. Data by \u0026copy; \u003ca target=\"_blank\" href=\"http://openstreetmap.org\"\u003eOpenStreetMap\u003c/a\u003e, under \u003ca target=\"_blank\" href=\"http://creativecommons.org/licenses/by-sa/3.0\"\u003eCC BY SA\u003c/a\u003e.", "detectRetina": false, "maxNativeZoom": 18, "maxZoom": 18, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
+            ).addTo(map_3d5297916f34f5068ea24cc277149da5);
+        
+    
+            var tile_layer_ee5473f3d8ddd7bfddd0fc038197d0ee = L.tileLayer(
+                "https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png",
+                {"attribution": "\u0026copy; \u003ca target=\"_blank\" href=\"http://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors \u0026copy; \u003ca target=\"_blank\" href=\"http://cartodb.com/attributions\"\u003eCartoDB\u003c/a\u003e, CartoDB \u003ca target=\"_blank\" href =\"http://cartodb.com/attributions\"\u003eattributions\u003c/a\u003e", "detectRetina": false, "maxNativeZoom": 18, "maxZoom": 18, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
+            ).addTo(map_3d5297916f34f5068ea24cc277149da5);
+        
+    
+            var tile_layer_0875cfb6034fb2c15cc186db34f7c320 = L.tileLayer(
+                "https://stamen-tiles-{s}.a.ssl.fastly.net/watercolor/{z}/{x}/{y}.jpg",
+                {"attribution": "Map tiles by \u003ca target=\"_blank\" href=\"http://stamen.com\"\u003eStamen Design\u003c/a\u003e, under \u003ca target=\"_blank\" href=\"http://creativecommons.org/licenses/by/3.0\"\u003eCC BY 3.0\u003c/a\u003e. Data by \u0026copy; \u003ca target=\"_blank\" href=\"http://openstreetmap.org\"\u003eOpenStreetMap\u003c/a\u003e, under \u003ca target=\"_blank\" href=\"http://creativecommons.org/licenses/by-sa/3.0\"\u003eCC BY SA\u003c/a\u003e.", "detectRetina": false, "maxNativeZoom": 18, "maxZoom": 18, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
+            ).addTo(map_3d5297916f34f5068ea24cc277149da5);
+        
+    
+            var tile_layer_4c51e513ed78efb619bef1b8c1907da9 = L.tileLayer(
+                "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png",
+                {"attribution": "CartoDB.DarkMatter", "className": "mapLayer", "detectRetina": false, "maxNativeZoom": 18, "maxZoom": 18, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
+            ).addTo(map_3d5297916f34f5068ea24cc277149da5);
+        
+    
+            var layer_control_c9e24898ba3e277313652c61dee5ce4c = {
+                base_layers : {
+                    "openstreetmap" : tile_layer_9b99c9bd3be77faa4a382b035d2bf4a2,
+                    "stamenterrain" : tile_layer_e5080ce249dddd28129af32a98bb093f,
+                    "cartodbpositron" : tile_layer_ee5473f3d8ddd7bfddd0fc038197d0ee,
+                    "stamenwatercolor" : tile_layer_0875cfb6034fb2c15cc186db34f7c320,
+                    "CartoDB.DarkMatter" : tile_layer_4c51e513ed78efb619bef1b8c1907da9,
+                },
+                overlays :  {
+                },
+            };
+            L.control.layers(
+                layer_control_c9e24898ba3e277313652c61dee5ce4c.base_layers,
+                layer_control_c9e24898ba3e277313652c61dee5ce4c.overlays,
+                {"autoZIndex": true, "collapsed": true, "position": "topright"}
+            ).addTo(map_3d5297916f34f5068ea24cc277149da5);
+            tile_layer_e5080ce249dddd28129af32a98bb093f.remove();
+            tile_layer_ee5473f3d8ddd7bfddd0fc038197d0ee.remove();
+            tile_layer_0875cfb6034fb2c15cc186db34f7c320.remove();
+            tile_layer_4c51e513ed78efb619bef1b8c1907da9.remove();
+        
+    
+            var marker_7b3df7b6381be05fd6d02072cdfa6706 = L.marker(
+                [80.4, -20.0],
+                {}
+            ).addTo(map_3d5297916f34f5068ea24cc277149da5);
+        
+    
+            var div_icon_5011cd0fd515c3abd7b7c6d11a4c4a21 = L.divIcon({"className": "top_title", "html": "Worldwide visits"});
+            marker_7b3df7b6381be05fd6d02072cdfa6706.setIcon(div_icon_5011cd0fd515c3abd7b7c6d11a4c4a21);
+        
+    
+        var popup_ab67bc0ce3eb04617137702d5ced8166 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_94c80645fba699fe9ab0e253007bd0f2 = $(`<div id="html_94c80645fba699fe9ab0e253007bd0f2" style="width: 100.0%; height: 100.0%;">Title</div>`)[0];
+                popup_ab67bc0ce3eb04617137702d5ced8166.setContent(html_94c80645fba699fe9ab0e253007bd0f2);
+            
+        
+
+        marker_7b3df7b6381be05fd6d02072cdfa6706.bindPopup(popup_ab67bc0ce3eb04617137702d5ced8166)
+        ;
+
+        
+    
+    
+            marker_7b3df7b6381be05fd6d02072cdfa6706.bindTooltip(
+                `<div>
+                     Stefan's worldwide visits
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_9b8ed9bd0b95648eb374bbf8e463db41 = L.circle(
+                [-62.0, -197.0],
+                {"bubblingMouseEvents": true, "color": "transparent", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "transparent", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 50, "stroke": true, "weight": 3}
+            ).addTo(map_3d5297916f34f5068ea24cc277149da5);
+        
+    
+            circle_9b8ed9bd0b95648eb374bbf8e463db41.bindTooltip(
+                `<div>
+                     <img src="https://snos.ro/media/flags/ROMANIA.GIF" height='20rem' style="margin-left:-0.6rem; 
+        margin-top:-0.9rem;" alt="image_city">
+                 </div>`,
+                {"permanent": true, "sticky": true}
+            );
+        
+    
+            var circle_e2e8679db208a230423058996620419e = L.circle(
+                [-62.0, -184.0],
+                {"bubblingMouseEvents": true, "color": "transparent", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "transparent", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 50, "stroke": true, "weight": 3}
+            ).addTo(map_3d5297916f34f5068ea24cc277149da5);
+        
+    
+            circle_e2e8679db208a230423058996620419e.bindTooltip(
+                `<div>
+                     <img src="https://snos.ro/media/flags/GERMANY.GIF" height='20rem' style="margin-left:-0.6rem; 
+        margin-top:-0.9rem;" alt="image_city">
+                 </div>`,
+                {"permanent": true, "sticky": true}
+            );
+        
+    
+            var marker_d14e38f4f9dd2d15042990c3859776bb = L.marker(
+                [-6.776, 39.178],
+                {}
+            ).addTo(map_3d5297916f34f5068ea24cc277149da5);
+        
+    
+            var icon_68995e00c77fe3a776ee80e51aea611f = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "ship", "iconColor": "white", "markerColor": "red", "prefix": "fa"}
+            );
+            marker_d14e38f4f9dd2d15042990c3859776bb.setIcon(icon_68995e00c77fe3a776ee80e51aea611f);
+        
+    
+        var popup_329d46f0d4633f2eb3c97f48faed023c = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_b81f667b830ebb80f00c9efaf97e07e3 = $(`<div id="html_b81f667b830ebb80f00c9efaf97e07e3" style="width: 100.0%; height: 100.0%;">                       <img src=https://snos.ro/media/cities/daressalaam.jpg                       class="img_city" alt="image_city">                       <h3 class='title_city'>Dar es-Salaam (Tanzania) <img src=https://snos.ro/media/flags/TANZANIA.GIF                       class="img_flag" alt="img_flag"></h3>                        <h5 class='last_visit'>last visit: Feb - 2015</h4>                       </div>`)[0];
+                popup_329d46f0d4633f2eb3c97f48faed023c.setContent(html_b81f667b830ebb80f00c9efaf97e07e3);
+            
+        
+
+        marker_d14e38f4f9dd2d15042990c3859776bb.bindPopup(popup_329d46f0d4633f2eb3c97f48faed023c)
+        ;
+
+        
+    
+    
+            var marker_73065bd8b80fb6d50b2e928281745ff2 = L.marker(
+                [13.069, 100.911],
+                {}
+            ).addTo(map_3d5297916f34f5068ea24cc277149da5);
+        
+    
+            var icon_0f79fe985b5e3a728a8a88bba9bb990f = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "ship", "iconColor": "white", "markerColor": "red", "prefix": "fa"}
+            );
+            marker_73065bd8b80fb6d50b2e928281745ff2.setIcon(icon_0f79fe985b5e3a728a8a88bba9bb990f);
+        
+    
+        var popup_cf400e43a42a6b16e71c239b255ff3ac = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_7a03987e75a0bfc3737f18f150057b25 = $(`<div id="html_7a03987e75a0bfc3737f18f150057b25" style="width: 100.0%; height: 100.0%;">                       <img src=https://snos.ro/media/cities/laemchabang.JPG                       class="img_city" alt="image_city">                       <h3 class='title_city'>Laem Chabang (Thailand) <img src=https://snos.ro/media/flags/THAILAND.GIF                       class="img_flag" alt="img_flag"></h3>                        <h5 class='last_visit'>last visit: Mar - 2015</h4>                       </div>`)[0];
+                popup_cf400e43a42a6b16e71c239b255ff3ac.setContent(html_7a03987e75a0bfc3737f18f150057b25);
+            
+        
+
+        marker_73065bd8b80fb6d50b2e928281745ff2.bindPopup(popup_cf400e43a42a6b16e71c239b255ff3ac)
+        ;
+
+        
+    
+    
+            var marker_6b9de55888f576fe7b76f60c40a5a4d6 = L.marker(
+                [1.383, 103.572],
+                {}
+            ).addTo(map_3d5297916f34f5068ea24cc277149da5);
+        
+    
+            var icon_e3aef23360536318ad1b0ffd84d1f391 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "ship", "iconColor": "white", "markerColor": "red", "prefix": "fa"}
+            );
+            marker_6b9de55888f576fe7b76f60c40a5a4d6.setIcon(icon_e3aef23360536318ad1b0ffd84d1f391);
+        
+    
+        var popup_4b07a72127b123ae58d7ebc901fa04cb = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_21fb82c115c017ef6230aafaa6281063 = $(`<div id="html_21fb82c115c017ef6230aafaa6281063" style="width: 100.0%; height: 100.0%;">                       <img src=https://snos.ro/media/cities/tpp.jpg                       class="img_city" alt="image_city">                       <h3 class='title_city'>Tanjung Pelepas (Malaysia) <img src=https://snos.ro/media/flags/MALAYSIA.GIF                       class="img_flag" alt="img_flag"></h3>                        <h5 class='last_visit'>last visit: Oct - 2023</h4>                       </div>`)[0];
+                popup_4b07a72127b123ae58d7ebc901fa04cb.setContent(html_21fb82c115c017ef6230aafaa6281063);
+            
+        
+
+        marker_6b9de55888f576fe7b76f60c40a5a4d6.bindPopup(popup_4b07a72127b123ae58d7ebc901fa04cb)
+        ;
+
+        
+    
+    
+            var marker_b88f45a7e1994fa0ada3109c5b4313a0 = L.marker(
+                [1.27, 103.836],
+                {}
+            ).addTo(map_3d5297916f34f5068ea24cc277149da5);
+        
+    
+            var icon_1fe06a34b534daa262a52594887d4684 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "ship", "iconColor": "white", "markerColor": "green", "prefix": "fa"}
+            );
+            marker_b88f45a7e1994fa0ada3109c5b4313a0.setIcon(icon_1fe06a34b534daa262a52594887d4684);
+        
+    
+        var popup_7dbbb8ee4b415245ba94098f0122d025 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_3708e3844c07b34316eaf35c080f6cb4 = $(`<div id="html_3708e3844c07b34316eaf35c080f6cb4" style="width: 100.0%; height: 100.0%;">                       <img src=https://snos.ro/media/cities/singapore.jpg                       class="img_city" alt="image_city">                       <h3 class='title_city'>Singapore (Singapore) <img src=https://snos.ro/media/flags/SINGAPORE.GIF                       class="img_flag" alt="img_flag"></h3>                        <h5 class='last_visit'>last visit: Dec - 2021</h4>                       </div>`)[0];
+                popup_7dbbb8ee4b415245ba94098f0122d025.setContent(html_3708e3844c07b34316eaf35c080f6cb4);
+            
+        
+
+        marker_b88f45a7e1994fa0ada3109c5b4313a0.bindPopup(popup_7dbbb8ee4b415245ba94098f0122d025)
+        ;
+
+        
+    
+    
+            var marker_b05443848870ecb38b1f25f50e6ff9c5 = L.marker(
+                [53.877, -166.545],
+                {}
+            ).addTo(map_3d5297916f34f5068ea24cc277149da5);
+        
+    
+            var icon_3419db8384fe72fb9496aa7119156c81 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "ship", "iconColor": "white", "markerColor": "green", "prefix": "fa"}
+            );
+            marker_b05443848870ecb38b1f25f50e6ff9c5.setIcon(icon_3419db8384fe72fb9496aa7119156c81);
+        
+    
+        var popup_d52c1fdebb27c316e59647fe2932990b = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_c1eac21188a842ca6d8de7bdae4102a2 = $(`<div id="html_c1eac21188a842ca6d8de7bdae4102a2" style="width: 100.0%; height: 100.0%;">                       <img src=https://snos.ro/media/cities/dutchharbour.jpg                       class="img_city" alt="image_city">                       <h3 class='title_city'>Dutch Harbour (USA) <img src=https://snos.ro/media/flags/UNITEDSTATES.GIF                       class="img_flag" alt="img_flag"></h3>                        <h5 class='last_visit'>last visit: Apr - 2015</h4>                       </div>`)[0];
+                popup_d52c1fdebb27c316e59647fe2932990b.setContent(html_c1eac21188a842ca6d8de7bdae4102a2);
+            
+        
+
+        marker_b05443848870ecb38b1f25f50e6ff9c5.bindPopup(popup_d52c1fdebb27c316e59647fe2932990b)
+        ;
+
+        
+    
+    
+            var marker_8af2a0205c1035d3b28e3762decec8f0 = L.marker(
+                [35.074, 128.809],
+                {}
+            ).addTo(map_3d5297916f34f5068ea24cc277149da5);
+        
+    
+            var icon_c41e29d5276fbbf84c8191f002f32bd3 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "ship", "iconColor": "white", "markerColor": "red", "prefix": "fa"}
+            );
+            marker_8af2a0205c1035d3b28e3762decec8f0.setIcon(icon_c41e29d5276fbbf84c8191f002f32bd3);
+        
+    
+        var popup_40259e74ae47d5f9ea2fa797b1dc9bec = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_9634d83f72c9e4f92fc1c2a836b71861 = $(`<div id="html_9634d83f72c9e4f92fc1c2a836b71861" style="width: 100.0%; height: 100.0%;">                       <img src=https://snos.ro/media/cities/busan.jpg                       class="img_city" alt="image_city">                       <h3 class='title_city'>Pusan (South Korea) <img src=https://snos.ro/media/flags/SOUTH-KOREA.GIF                       class="img_flag" alt="img_flag"></h3>                        <h5 class='last_visit'>last visit: Dec - 2021</h4>                       </div>`)[0];
+                popup_40259e74ae47d5f9ea2fa797b1dc9bec.setContent(html_9634d83f72c9e4f92fc1c2a836b71861);
+            
+        
+
+        marker_8af2a0205c1035d3b28e3762decec8f0.bindPopup(popup_40259e74ae47d5f9ea2fa797b1dc9bec)
+        ;
+
+        
+    
+    
+            var marker_94c98107918a46ff38b19d4d1550fff6 = L.marker(
+                [36.068, 120.376],
+                {}
+            ).addTo(map_3d5297916f34f5068ea24cc277149da5);
+        
+    
+            var icon_f0adfcc9951e54b6a1f863663b7a26be = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "ship", "iconColor": "white", "markerColor": "red", "prefix": "fa"}
+            );
+            marker_94c98107918a46ff38b19d4d1550fff6.setIcon(icon_f0adfcc9951e54b6a1f863663b7a26be);
+        
+    
+        var popup_a0f5b694e3cb7bf6375cdcd660b98e3e = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_034671442b6413822bf657856e348d09 = $(`<div id="html_034671442b6413822bf657856e348d09" style="width: 100.0%; height: 100.0%;">                       <img src=https://snos.ro/media/cities/qingdao.jpg                       class="img_city" alt="image_city">                       <h3 class='title_city'>Qingdao (China) <img src=https://snos.ro/media/flags/CHINA.GIF                       class="img_flag" alt="img_flag"></h3>                        <h5 class='last_visit'>last visit: Feb - 2019</h4>                       </div>`)[0];
+                popup_a0f5b694e3cb7bf6375cdcd660b98e3e.setContent(html_034671442b6413822bf657856e348d09);
+            
+        
+
+        marker_94c98107918a46ff38b19d4d1550fff6.bindPopup(popup_a0f5b694e3cb7bf6375cdcd660b98e3e)
+        ;
+
+        
+    
+    
+            var marker_e8c2baf33092cb0426d8f71fe8dcc742 = L.marker(
+                [34.975, 127.589],
+                {}
+            ).addTo(map_3d5297916f34f5068ea24cc277149da5);
+        
+    
+            var icon_14252de108e6ac90a007357f4b72331c = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "ship", "iconColor": "white", "markerColor": "red", "prefix": "fa"}
+            );
+            marker_e8c2baf33092cb0426d8f71fe8dcc742.setIcon(icon_14252de108e6ac90a007357f4b72331c);
+        
+    
+        var popup_90c4225f8d7e544b7965c119f1445b4a = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_9ba1b2e4d8de29d5b24dcb4be45fe77a = $(`<div id="html_9ba1b2e4d8de29d5b24dcb4be45fe77a" style="width: 100.0%; height: 100.0%;">                       <img src=https://snos.ro/media/cities/kwangyang.jpg                       class="img_city" alt="image_city">                       <h3 class='title_city'>Kwangyang (South Korea) <img src=https://snos.ro/media/flags/SOUTH-KOREA.GIF                       class="img_flag" alt="img_flag"></h3>                        <h5 class='last_visit'>last visit: May - 2015</h4>                       </div>`)[0];
+                popup_90c4225f8d7e544b7965c119f1445b4a.setContent(html_9ba1b2e4d8de29d5b24dcb4be45fe77a);
+            
+        
+
+        marker_e8c2baf33092cb0426d8f71fe8dcc742.bindPopup(popup_90c4225f8d7e544b7965c119f1445b4a)
+        ;
+
+        
+    
+    
+            var marker_10ab565daa76a89ad67b756f692a9368 = L.marker(
+                [31.221, 121.482],
+                {}
+            ).addTo(map_3d5297916f34f5068ea24cc277149da5);
+        
+    
+            var icon_fd40041934ee2c545b0b94da308cd311 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "ship", "iconColor": "white", "markerColor": "green", "prefix": "fa"}
+            );
+            marker_10ab565daa76a89ad67b756f692a9368.setIcon(icon_fd40041934ee2c545b0b94da308cd311);
+        
+    
+        var popup_adeb6e5a1590e538cb30e389317efdc1 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_97a690041eb564a64ea38c3e2d0dff4a = $(`<div id="html_97a690041eb564a64ea38c3e2d0dff4a" style="width: 100.0%; height: 100.0%;">                       <img src=https://snos.ro/media/cities/shanghai.jpg                       class="img_city" alt="image_city">                       <h3 class='title_city'>Shanghai (China) <img src=https://snos.ro/media/flags/CHINA.GIF                       class="img_flag" alt="img_flag"></h3>                        <h5 class='last_visit'>last visit: Oct - 2023</h4>                       </div>`)[0];
+                popup_adeb6e5a1590e538cb30e389317efdc1.setContent(html_97a690041eb564a64ea38c3e2d0dff4a);
+            
+        
+
+        marker_10ab565daa76a89ad67b756f692a9368.bindPopup(popup_adeb6e5a1590e538cb30e389317efdc1)
+        ;
+
+        
+    
+    
+            var marker_4501713470dee16947c613adcf9b0c3e = L.marker(
+                [22.473, 113.907],
+                {}
+            ).addTo(map_3d5297916f34f5068ea24cc277149da5);
+        
+    
+            var icon_5b12be554dab230be73f70d15e500361 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "ship", "iconColor": "white", "markerColor": "red", "prefix": "fa"}
+            );
+            marker_4501713470dee16947c613adcf9b0c3e.setIcon(icon_5b12be554dab230be73f70d15e500361);
+        
+    
+        var popup_00be06795614baeb8c86c49e7dd43301 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_a2c03266a8c4450500f216047745166b = $(`<div id="html_a2c03266a8c4450500f216047745166b" style="width: 100.0%; height: 100.0%;">                       <img src=https://snos.ro/media/cities/shekou.jpg                       class="img_city" alt="image_city">                       <h3 class='title_city'>Shekou (China) <img src=https://snos.ro/media/flags/CHINA.GIF                       class="img_flag" alt="img_flag"></h3>                        <h5 class='last_visit'>last visit: May - 2015</h4>                       </div>`)[0];
+                popup_00be06795614baeb8c86c49e7dd43301.setContent(html_a2c03266a8c4450500f216047745166b);
+            
+        
+
+        marker_4501713470dee16947c613adcf9b0c3e.bindPopup(popup_00be06795614baeb8c86c49e7dd43301)
+        ;
+
+        
+    
+    
+            var marker_aeb7ea687a43d59926ab5aa3b9c83f0a = L.marker(
+                [3.0, 101.4],
+                {}
+            ).addTo(map_3d5297916f34f5068ea24cc277149da5);
+        
+    
+            var icon_75e856e7d34b0d6310147da9c43d6b82 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "ship", "iconColor": "white", "markerColor": "red", "prefix": "fa"}
+            );
+            marker_aeb7ea687a43d59926ab5aa3b9c83f0a.setIcon(icon_75e856e7d34b0d6310147da9c43d6b82);
+        
+    
+        var popup_2adcda118062965a40818b3fe00e1a08 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_12cffbc083d3b4acbaeed8e2e6f55f89 = $(`<div id="html_12cffbc083d3b4acbaeed8e2e6f55f89" style="width: 100.0%; height: 100.0%;">                       <img src=https://snos.ro/media/cities/portklang.jpg                       class="img_city" alt="image_city">                       <h3 class='title_city'>Port Klang (Malaysia) <img src=https://snos.ro/media/flags/MALAYSIA.GIF                       class="img_flag" alt="img_flag"></h3>                        <h5 class='last_visit'>last visit: Apr - 2020</h4>                       </div>`)[0];
+                popup_2adcda118062965a40818b3fe00e1a08.setContent(html_12cffbc083d3b4acbaeed8e2e6f55f89);
+            
+        
+
+        marker_aeb7ea687a43d59926ab5aa3b9c83f0a.bindPopup(popup_2adcda118062965a40818b3fe00e1a08)
+        ;
+
+        
+    
+    
+            var marker_d76786c166ecbe69aff77c494a33c266 = L.marker(
+                [5.285, 100.456],
+                {}
+            ).addTo(map_3d5297916f34f5068ea24cc277149da5);
+        
+    
+            var icon_29349565dea7fcd33468c4885e60c836 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "ship", "iconColor": "white", "markerColor": "green", "prefix": "fa"}
+            );
+            marker_d76786c166ecbe69aff77c494a33c266.setIcon(icon_29349565dea7fcd33468c4885e60c836);
+        
+    
+        var popup_186d97d2f138bc3f8aa90e59eb95503d = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_05987691e80c9898aae1fd3745d7c98c = $(`<div id="html_05987691e80c9898aae1fd3745d7c98c" style="width: 100.0%; height: 100.0%;">                       <img src=https://snos.ro/media/cities/penang.jpg                       class="img_city" alt="image_city">                       <h3 class='title_city'>Penang (Malaysia) <img src=https://snos.ro/media/flags/MALAYSIA.GIF                       class="img_flag" alt="img_flag"></h3>                        <h5 class='last_visit'>last visit: Feb - 2019</h4>                       </div>`)[0];
+                popup_186d97d2f138bc3f8aa90e59eb95503d.setContent(html_05987691e80c9898aae1fd3745d7c98c);
+            
+        
+
+        marker_d76786c166ecbe69aff77c494a33c266.bindPopup(popup_186d97d2f138bc3f8aa90e59eb95503d)
+        ;
+
+        
+    
+    
+            var marker_2c520ba76f5489e84171a3de2533457d = L.marker(
+                [1.502, 103.947],
+                {}
+            ).addTo(map_3d5297916f34f5068ea24cc277149da5);
+        
+    
+            var icon_5f5fb0fead101d1bf4577fe8e3d77047 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "ship", "iconColor": "white", "markerColor": "red", "prefix": "fa"}
+            );
+            marker_2c520ba76f5489e84171a3de2533457d.setIcon(icon_5f5fb0fead101d1bf4577fe8e3d77047);
+        
+    
+        var popup_2d219604b255eecbd2791c74697d7618 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_f0376f1ab7749be9939d1dd42e66e9a2 = $(`<div id="html_f0376f1ab7749be9939d1dd42e66e9a2" style="width: 100.0%; height: 100.0%;">                       <img src=https://snos.ro/media/cities/pasirgudang.jpg                       class="img_city" alt="image_city">                       <h3 class='title_city'>Pasir Gudang (Malaysia) <img src=https://snos.ro/media/flags/MALAYSIA.GIF                       class="img_flag" alt="img_flag"></h3>                        <h5 class='last_visit'>last visit: May - 2015</h4>                       </div>`)[0];
+                popup_2d219604b255eecbd2791c74697d7618.setContent(html_f0376f1ab7749be9939d1dd42e66e9a2);
+            
+        
+
+        marker_2c520ba76f5489e84171a3de2533457d.bindPopup(popup_2d219604b255eecbd2791c74697d7618)
+        ;
+
+        
+    
+    
+            var marker_1e7587b1a7b45466ba028a9502e61009 = L.marker(
+                [22.303, 114.177],
+                {}
+            ).addTo(map_3d5297916f34f5068ea24cc277149da5);
+        
+    
+            var icon_635105ca9a99a4af503140fd453ef9d4 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "ship", "iconColor": "white", "markerColor": "red", "prefix": "fa"}
+            );
+            marker_1e7587b1a7b45466ba028a9502e61009.setIcon(icon_635105ca9a99a4af503140fd453ef9d4);
+        
+    
+        var popup_f372f4bc0216187025d2f159e4530e8e = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_2121456d22ef0130587eca43e69a8b94 = $(`<div id="html_2121456d22ef0130587eca43e69a8b94" style="width: 100.0%; height: 100.0%;">                       <img src=https://snos.ro/media/cities/hongkong.jpg                       class="img_city" alt="image_city">                       <h3 class='title_city'>Hong Kong (Hong Kong) <img src=https://snos.ro/media/flags/hongkong.png                       class="img_flag" alt="img_flag"></h3>                        <h5 class='last_visit'>last visit: Nov - 2022</h4>                       </div>`)[0];
+                popup_f372f4bc0216187025d2f159e4530e8e.setContent(html_2121456d22ef0130587eca43e69a8b94);
+            
+        
+
+        marker_1e7587b1a7b45466ba028a9502e61009.bindPopup(popup_f372f4bc0216187025d2f159e4530e8e)
+        ;
+
+        
+    
+    
+            var marker_629b36160783d1ce04d7792e27d0007f = L.marker(
+                [24.48, 118.089],
+                {}
+            ).addTo(map_3d5297916f34f5068ea24cc277149da5);
+        
+    
+            var icon_57459eb8f3330da154b6eb11d30dbd3a = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "ship", "iconColor": "white", "markerColor": "red", "prefix": "fa"}
+            );
+            marker_629b36160783d1ce04d7792e27d0007f.setIcon(icon_57459eb8f3330da154b6eb11d30dbd3a);
+        
+    
+        var popup_d4ef116af3e3674581bc8660e29d946a = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_e69487a7421472204b79ff805154b73c = $(`<div id="html_e69487a7421472204b79ff805154b73c" style="width: 100.0%; height: 100.0%;">                       <img src=https://snos.ro/media/cities/xiamen.jpg                       class="img_city" alt="image_city">                       <h3 class='title_city'>Xiamen (China) <img src=https://snos.ro/media/flags/CHINA.GIF                       class="img_flag" alt="img_flag"></h3>                        <h5 class='last_visit'>last visit: Nov - 2022</h4>                       </div>`)[0];
+                popup_d4ef116af3e3674581bc8660e29d946a.setContent(html_e69487a7421472204b79ff805154b73c);
+            
+        
+
+        marker_629b36160783d1ce04d7792e27d0007f.bindPopup(popup_d4ef116af3e3674581bc8660e29d946a)
+        ;
+
+        
+    
+    
+            var marker_0bf606400bb74d86f931ad2bc5cdc0d1 = L.marker(
+                [22.556, 114.237],
+                {}
+            ).addTo(map_3d5297916f34f5068ea24cc277149da5);
+        
+    
+            var icon_5216f1ef33da61df2644b2bd9fa79070 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "ship", "iconColor": "white", "markerColor": "green", "prefix": "fa"}
+            );
+            marker_0bf606400bb74d86f931ad2bc5cdc0d1.setIcon(icon_5216f1ef33da61df2644b2bd9fa79070);
+        
+    
+        var popup_065c812d1f4e76094a24a0a6345af43f = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_22e75942bebd63acc394697b1b30f7e9 = $(`<div id="html_22e75942bebd63acc394697b1b30f7e9" style="width: 100.0%; height: 100.0%;">                       <img src=https://snos.ro/media/cities/yantian.jpg                       class="img_city" alt="image_city">                       <h3 class='title_city'>Yantian (China) <img src=https://snos.ro/media/flags/CHINA.GIF                       class="img_flag" alt="img_flag"></h3>                        <h5 class='last_visit'>last visit: Oct - 2023</h4>                       </div>`)[0];
+                popup_065c812d1f4e76094a24a0a6345af43f.setContent(html_22e75942bebd63acc394697b1b30f7e9);
+            
+        
+
+        marker_0bf606400bb74d86f931ad2bc5cdc0d1.bindPopup(popup_065c812d1f4e76094a24a0a6345af43f)
+        ;
+
+        
+    
+    
+            var marker_4c8dd8fffa72f47372bddb4ddec047d9 = L.marker(
+                [22.633, 120.267],
+                {}
+            ).addTo(map_3d5297916f34f5068ea24cc277149da5);
+        
+    
+            var icon_49aa7a8c4f6c88801d0a44a06cf566fd = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "ship", "iconColor": "white", "markerColor": "red", "prefix": "fa"}
+            );
+            marker_4c8dd8fffa72f47372bddb4ddec047d9.setIcon(icon_49aa7a8c4f6c88801d0a44a06cf566fd);
+        
+    
+        var popup_d625fd7d0714188c56b92c5b2d493a29 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_e3aa7585f8e219efd226b6eef9afd8c4 = $(`<div id="html_e3aa7585f8e219efd226b6eef9afd8c4" style="width: 100.0%; height: 100.0%;">                       <img src=https://snos.ro/media/cities/kaohsiung.jpg                       class="img_city" alt="image_city">                       <h3 class='title_city'>Kaohsiung (Taiwan) <img src=https://snos.ro/media/flags/TAIWAN.GIF                       class="img_flag" alt="img_flag"></h3>                        <h5 class='last_visit'>last visit: Iun - 2015</h4>                       </div>`)[0];
+                popup_d625fd7d0714188c56b92c5b2d493a29.setContent(html_e3aa7585f8e219efd226b6eef9afd8c4);
+            
+        
+
+        marker_4c8dd8fffa72f47372bddb4ddec047d9.bindPopup(popup_d625fd7d0714188c56b92c5b2d493a29)
+        ;
+
+        
+    
+    
+            var marker_fdcee0a6794f21cb09bd46d4bb3d0775 = L.marker(
+                [14.593, 120.989],
+                {}
+            ).addTo(map_3d5297916f34f5068ea24cc277149da5);
+        
+    
+            var icon_83a9820e7db32ef358d4e26961a55784 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "ship", "iconColor": "white", "markerColor": "red", "prefix": "fa"}
+            );
+            marker_fdcee0a6794f21cb09bd46d4bb3d0775.setIcon(icon_83a9820e7db32ef358d4e26961a55784);
+        
+    
+        var popup_bc1efe4cdb01c0e66974edacf228c4a2 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_728ec39ec004521dc900c262f0447e03 = $(`<div id="html_728ec39ec004521dc900c262f0447e03" style="width: 100.0%; height: 100.0%;">                       <img src=https://snos.ro/media/cities/manila.jpg                       class="img_city" alt="image_city">                       <h3 class='title_city'>Manila (Philippines) <img src=https://snos.ro/media/flags/PHILIPPINES.GIF                       class="img_flag" alt="img_flag"></h3>                        <h5 class='last_visit'>last visit: Iun - 2015</h4>                       </div>`)[0];
+                popup_bc1efe4cdb01c0e66974edacf228c4a2.setContent(html_728ec39ec004521dc900c262f0447e03);
+            
+        
+
+        marker_fdcee0a6794f21cb09bd46d4bb3d0775.bindPopup(popup_bc1efe4cdb01c0e66974edacf228c4a2)
+        ;
+
+        
+    
+    
+            var marker_7a1d22cf5d85d671f7451c30c34cc788 = L.marker(
+                [13.942, 121.164],
+                {}
+            ).addTo(map_3d5297916f34f5068ea24cc277149da5);
+        
+    
+            var icon_88bf0499b517be9c13d2418ec9cdcbd5 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "ship", "iconColor": "white", "markerColor": "red", "prefix": "fa"}
+            );
+            marker_7a1d22cf5d85d671f7451c30c34cc788.setIcon(icon_88bf0499b517be9c13d2418ec9cdcbd5);
+        
+    
+        var popup_88c276173e1636671392e22991b76ca4 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_c0ea33c7cf67dc4d22d58a99e6173cc3 = $(`<div id="html_c0ea33c7cf67dc4d22d58a99e6173cc3" style="width: 100.0%; height: 100.0%;">                       <img src=https://snos.ro/media/cities/batangas.jpg                       class="img_city" alt="image_city">                       <h3 class='title_city'>Batangas (Philippines) <img src=https://snos.ro/media/flags/PHILIPPINES.GIF                       class="img_flag" alt="img_flag"></h3>                        <h5 class='last_visit'>last visit: Jul - 2015</h4>                       </div>`)[0];
+                popup_88c276173e1636671392e22991b76ca4.setContent(html_c0ea33c7cf67dc4d22d58a99e6173cc3);
+            
+        
+
+        marker_7a1d22cf5d85d671f7451c30c34cc788.bindPopup(popup_88c276173e1636671392e22991b76ca4)
+        ;
+
+        
+    
+    
+            var marker_a81f3c152bcec35c4fb8d614c8a54135 = L.marker(
+                [8.477, 124.946],
+                {}
+            ).addTo(map_3d5297916f34f5068ea24cc277149da5);
+        
+    
+            var icon_76be62eae782491b4d7ad1eb94cde107 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "ship", "iconColor": "white", "markerColor": "green", "prefix": "fa"}
+            );
+            marker_a81f3c152bcec35c4fb8d614c8a54135.setIcon(icon_76be62eae782491b4d7ad1eb94cde107);
+        
+    
+        var popup_55d7a5c0e0959e6d563fc73985305ec1 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_0c004553b71cbc635fb5138c025f080c = $(`<div id="html_0c004553b71cbc635fb5138c025f080c" style="width: 100.0%; height: 100.0%;">                       <img src=https://snos.ro/media/cities/cagayandeoro.jpg                       class="img_city" alt="image_city">                       <h3 class='title_city'>Cagayan de Oro (Philippines) <img src=https://snos.ro/media/flags/PHILIPPINES.GIF                       class="img_flag" alt="img_flag"></h3>                        <h5 class='last_visit'>last visit: Jul - 2015</h4>                       </div>`)[0];
+                popup_55d7a5c0e0959e6d563fc73985305ec1.setContent(html_0c004553b71cbc635fb5138c025f080c);
+            
+        
+
+        marker_a81f3c152bcec35c4fb8d614c8a54135.bindPopup(popup_55d7a5c0e0959e6d563fc73985305ec1)
+        ;
+
+        
+    
+    
+            var marker_2a76034786bc76020b734a413458ace2 = L.marker(
+                [6.116, 125.172],
+                {}
+            ).addTo(map_3d5297916f34f5068ea24cc277149da5);
+        
+    
+            var icon_9a60203db57b8fb368cb5ac0c9f500c7 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "ship", "iconColor": "white", "markerColor": "green", "prefix": "fa"}
+            );
+            marker_2a76034786bc76020b734a413458ace2.setIcon(icon_9a60203db57b8fb368cb5ac0c9f500c7);
+        
+    
+        var popup_deaa9664be6475c126a0eb7bceac24c7 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_a61ac29aa2ff312eb4c319e84c480bd6 = $(`<div id="html_a61ac29aa2ff312eb4c319e84c480bd6" style="width: 100.0%; height: 100.0%;">                       <img src=https://snos.ro/media/cities/generalsantos.jpg                       class="img_city" alt="image_city">                       <h3 class='title_city'>General Santos (Philippines) <img src=https://snos.ro/media/flags/PHILIPPINES.GIF                       class="img_flag" alt="img_flag"></h3>                        <h5 class='last_visit'>last visit: Jul - 2015</h4>                       </div>`)[0];
+                popup_deaa9664be6475c126a0eb7bceac24c7.setContent(html_a61ac29aa2ff312eb4c319e84c480bd6);
+            
+        
+
+        marker_2a76034786bc76020b734a413458ace2.bindPopup(popup_deaa9664be6475c126a0eb7bceac24c7)
+        ;
+
+        
+    
+    
+            var marker_64766cf532b0f29ff08d058e49534c71 = L.marker(
+                [7.067, 125.6],
+                {}
+            ).addTo(map_3d5297916f34f5068ea24cc277149da5);
+        
+    
+            var icon_e2793b8abf58a8ea68154b856358015d = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "ship", "iconColor": "white", "markerColor": "green", "prefix": "fa"}
+            );
+            marker_64766cf532b0f29ff08d058e49534c71.setIcon(icon_e2793b8abf58a8ea68154b856358015d);
+        
+    
+        var popup_222cf75cac7585ecd396420e844960a4 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_8ee960547f94d1407ec5f132daa2e68f = $(`<div id="html_8ee960547f94d1407ec5f132daa2e68f" style="width: 100.0%; height: 100.0%;">                       <img src=https://snos.ro/media/cities/davaocity.jpg                       class="img_city" alt="image_city">                       <h3 class='title_city'>Davao City (Philippines) <img src=https://snos.ro/media/flags/PHILIPPINES.GIF                       class="img_flag" alt="img_flag"></h3>                        <h5 class='last_visit'>last visit: Jul - 2015</h4>                       </div>`)[0];
+                popup_222cf75cac7585ecd396420e844960a4.setContent(html_8ee960547f94d1407ec5f132daa2e68f);
+            
+        
+
+        marker_64766cf532b0f29ff08d058e49534c71.bindPopup(popup_222cf75cac7585ecd396420e844960a4)
+        ;
+
+        
+    
+    
+            var marker_47f942a4e2024e24ec065657ef5ff8ed = L.marker(
+                [29.868, 121.544],
+                {}
+            ).addTo(map_3d5297916f34f5068ea24cc277149da5);
+        
+    
+            var icon_5b3c088da5566a9e4ca78961e60cfa0b = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "ship", "iconColor": "white", "markerColor": "red", "prefix": "fa"}
+            );
+            marker_47f942a4e2024e24ec065657ef5ff8ed.setIcon(icon_5b3c088da5566a9e4ca78961e60cfa0b);
+        
+    
+        var popup_6876e1d567f961c21a9b61be9a8bcedc = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_f2bdb734a8166037ceebe6d777e09649 = $(`<div id="html_f2bdb734a8166037ceebe6d777e09649" style="width: 100.0%; height: 100.0%;">                       <img src=https://snos.ro/media/cities/ningbo.JPG                       class="img_city" alt="image_city">                       <h3 class='title_city'>Ningbo (China) <img src=https://snos.ro/media/flags/CHINA.GIF                       class="img_flag" alt="img_flag"></h3>                        <h5 class='last_visit'>last visit: Sep - 2023</h4>                       </div>`)[0];
+                popup_6876e1d567f961c21a9b61be9a8bcedc.setContent(html_f2bdb734a8166037ceebe6d777e09649);
+            
+        
+
+        marker_47f942a4e2024e24ec065657ef5ff8ed.bindPopup(popup_6876e1d567f961c21a9b61be9a8bcedc)
+        ;
+
+        
+    
+    
+            var marker_04ebc9788c29e0dbf75d9720a5993257 = L.marker(
+                [43.133, 131.9],
+                {}
+            ).addTo(map_3d5297916f34f5068ea24cc277149da5);
+        
+    
+            var icon_b98f4aa530a19af421bd00054def191b = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "ship", "iconColor": "white", "markerColor": "green", "prefix": "fa"}
+            );
+            marker_04ebc9788c29e0dbf75d9720a5993257.setIcon(icon_b98f4aa530a19af421bd00054def191b);
+        
+    
+        var popup_5adca8dc5df3adbc71b31e7f8b378a7b = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_9ad8ec95e1e4936ea8425c888e3083e0 = $(`<div id="html_9ad8ec95e1e4936ea8425c888e3083e0" style="width: 100.0%; height: 100.0%;">                       <img src=https://snos.ro/media/cities/vladivostok.JPG                       class="img_city" alt="image_city">                       <h3 class='title_city'>Vladivostok (Russia) <img src=https://snos.ro/media/flags/RUSSIA.GIF                       class="img_flag" alt="img_flag"></h3>                        <h5 class='last_visit'>last visit: Jul - 2015</h4>                       </div>`)[0];
+                popup_5adca8dc5df3adbc71b31e7f8b378a7b.setContent(html_9ad8ec95e1e4936ea8425c888e3083e0);
+            
+        
+
+        marker_04ebc9788c29e0dbf75d9720a5993257.bindPopup(popup_5adca8dc5df3adbc71b31e7f8b378a7b)
+        ;
+
+        
+    
+    
+            var marker_e755acf20de1ee803ba59de96c9db164 = L.marker(
+                [39.467, -0.375],
+                {}
+            ).addTo(map_3d5297916f34f5068ea24cc277149da5);
+        
+    
+            var icon_771bd40bac50589784bdad2458cca467 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "ship", "iconColor": "white", "markerColor": "green", "prefix": "fa"}
+            );
+            marker_e755acf20de1ee803ba59de96c9db164.setIcon(icon_771bd40bac50589784bdad2458cca467);
+        
+    
+        var popup_78671f70dd054904445ee0026ab9893a = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_75ed27e70bb2654c0b5dfe0810303d2e = $(`<div id="html_75ed27e70bb2654c0b5dfe0810303d2e" style="width: 100.0%; height: 100.0%;">                       <img src=https://snos.ro/media/cities/valencia.JPG                       class="img_city" alt="image_city">                       <h3 class='title_city'>Valencia (Spain) <img src=https://snos.ro/media/flags/SPAIN.GIF                       class="img_flag" alt="img_flag"></h3>                        <h5 class='last_visit'>last visit: Apr - 2019</h4>                       </div>`)[0];
+                popup_78671f70dd054904445ee0026ab9893a.setContent(html_75ed27e70bb2654c0b5dfe0810303d2e);
+            
+        
+
+        marker_e755acf20de1ee803ba59de96c9db164.bindPopup(popup_78671f70dd054904445ee0026ab9893a)
+        ;
+
+        
+    
+    
+            var marker_5012c024a57e1e3a6ebe387ec5d77a61 = L.marker(
+                [41.116, 1.249],
+                {}
+            ).addTo(map_3d5297916f34f5068ea24cc277149da5);
+        
+    
+            var icon_ab15a390a87ad4de4f45d66ca06394ed = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "ship", "iconColor": "white", "markerColor": "red", "prefix": "fa"}
+            );
+            marker_5012c024a57e1e3a6ebe387ec5d77a61.setIcon(icon_ab15a390a87ad4de4f45d66ca06394ed);
+        
+    
+        var popup_6e0df1ee6385df43b91076cb5beb865e = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_0b3c7682b8b15c3721281ce4a46c5dd7 = $(`<div id="html_0b3c7682b8b15c3721281ce4a46c5dd7" style="width: 100.0%; height: 100.0%;">                       <img src=https://snos.ro/media/cities/tarragona.JPG                       class="img_city" alt="image_city">                       <h3 class='title_city'>Tarragona (Spain) <img src=https://snos.ro/media/flags/SPAIN.GIF                       class="img_flag" alt="img_flag"></h3>                        <h5 class='last_visit'>last visit: Jan - 2016</h4>                       </div>`)[0];
+                popup_6e0df1ee6385df43b91076cb5beb865e.setContent(html_0b3c7682b8b15c3721281ce4a46c5dd7);
+            
+        
+
+        marker_5012c024a57e1e3a6ebe387ec5d77a61.bindPopup(popup_6e0df1ee6385df43b91076cb5beb865e)
+        ;
+
+        
+    
+    
+            var marker_a39d8d5eb10fdad6a751394f71c2bc5f = L.marker(
+                [36.123, -5.452],
+                {}
+            ).addTo(map_3d5297916f34f5068ea24cc277149da5);
+        
+    
+            var icon_d7a24ed5b82c16deb0f85d8390624710 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "ship", "iconColor": "white", "markerColor": "green", "prefix": "fa"}
+            );
+            marker_a39d8d5eb10fdad6a751394f71c2bc5f.setIcon(icon_d7a24ed5b82c16deb0f85d8390624710);
+        
+    
+        var popup_0fe25f7887017dfc4a45cc7d6ca5870d = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_18d733d2184af9c37215ae31c49c82c9 = $(`<div id="html_18d733d2184af9c37215ae31c49c82c9" style="width: 100.0%; height: 100.0%;">                       <img src=https://snos.ro/media/cities/algeciras.jpg                       class="img_city" alt="image_city">                       <h3 class='title_city'>Algeciras (Spain) <img src=https://snos.ro/media/flags/SPAIN.GIF                       class="img_flag" alt="img_flag"></h3>                        <h5 class='last_visit'>last visit: Jan - 2016</h4>                       </div>`)[0];
+                popup_0fe25f7887017dfc4a45cc7d6ca5870d.setContent(html_18d733d2184af9c37215ae31c49c82c9);
+            
+        
+
+        marker_a39d8d5eb10fdad6a751394f71c2bc5f.bindPopup(popup_0fe25f7887017dfc4a45cc7d6ca5870d)
+        ;
+
+        
+    
+    
+            var marker_9b33eb3997b423ef7b67ffaf007b96ee = L.marker(
+                [35.875, -5.521],
+                {}
+            ).addTo(map_3d5297916f34f5068ea24cc277149da5);
+        
+    
+            var icon_4ffc3fa1683b35d2f8ddd7a0ea36affe = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "ship", "iconColor": "white", "markerColor": "red", "prefix": "fa"}
+            );
+            marker_9b33eb3997b423ef7b67ffaf007b96ee.setIcon(icon_4ffc3fa1683b35d2f8ddd7a0ea36affe);
+        
+    
+        var popup_096b4471543fb572327ef335d528fae5 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_070076e2748d175403dae455fcdbca9a = $(`<div id="html_070076e2748d175403dae455fcdbca9a" style="width: 100.0%; height: 100.0%;">                       <img src=https://snos.ro/media/cities/tangermed.jpg                       class="img_city" alt="image_city">                       <h3 class='title_city'>Tanger Med (Morocco) <img src=https://snos.ro/media/flags/MOROCCO.GIF                       class="img_flag" alt="img_flag"></h3>                        <h5 class='last_visit'>last visit: Feb - 2016</h4>                       </div>`)[0];
+                popup_096b4471543fb572327ef335d528fae5.setContent(html_070076e2748d175403dae455fcdbca9a);
+            
+        
+
+        marker_9b33eb3997b423ef7b67ffaf007b96ee.bindPopup(popup_096b4471543fb572327ef335d528fae5)
+        ;
+
+        
+    
+    
+            var marker_1cf3c43e2f39b96aa57762987caec866 = L.marker(
+                [14.717, -17.468],
+                {}
+            ).addTo(map_3d5297916f34f5068ea24cc277149da5);
+        
+    
+            var icon_974a6efec915b8fe776818dde5040d43 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "ship", "iconColor": "white", "markerColor": "red", "prefix": "fa"}
+            );
+            marker_1cf3c43e2f39b96aa57762987caec866.setIcon(icon_974a6efec915b8fe776818dde5040d43);
+        
+    
+        var popup_bfb7e0faf2875f6e7b8e661b5f2c78d7 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_73a0e654e6e4b9ccafb9d630f0f1b182 = $(`<div id="html_73a0e654e6e4b9ccafb9d630f0f1b182" style="width: 100.0%; height: 100.0%;">                       <img src=https://snos.ro/media/cities/dakar.jpg                       class="img_city" alt="image_city">                       <h3 class='title_city'>Dakar (Senegal) <img src=https://snos.ro/media/flags/SENEGAL.GIF                       class="img_flag" alt="img_flag"></h3>                        <h5 class='last_visit'>last visit: Feb - 2016</h4>                       </div>`)[0];
+                popup_bfb7e0faf2875f6e7b8e661b5f2c78d7.setContent(html_73a0e654e6e4b9ccafb9d630f0f1b182);
+            
+        
+
+        marker_1cf3c43e2f39b96aa57762987caec866.bindPopup(popup_bfb7e0faf2875f6e7b8e661b5f2c78d7)
+        ;
+
+        
+    
+    
+            var marker_c24e05592027360c425e66b82e6197d5 = L.marker(
+                [6.465, 3.406],
+                {}
+            ).addTo(map_3d5297916f34f5068ea24cc277149da5);
+        
+    
+            var icon_79ed0d27482147f7248604a50c72ff3b = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "ship", "iconColor": "white", "markerColor": "red", "prefix": "fa"}
+            );
+            marker_c24e05592027360c425e66b82e6197d5.setIcon(icon_79ed0d27482147f7248604a50c72ff3b);
+        
+    
+        var popup_cd3633b2572c2b3bf5832b2a5ed510ea = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_5cff1c5b0094e3e0e853861769f206fe = $(`<div id="html_5cff1c5b0094e3e0e853861769f206fe" style="width: 100.0%; height: 100.0%;">                       <img src=https://snos.ro/media/cities/lagos.jpg                       class="img_city" alt="image_city">                       <h3 class='title_city'>Lagos (Nigeria) <img src=https://snos.ro/media/flags/NIGERIA.GIF                       class="img_flag" alt="img_flag"></h3>                        <h5 class='last_visit'>last visit: Feb - 2016</h4>                       </div>`)[0];
+                popup_cd3633b2572c2b3bf5832b2a5ed510ea.setContent(html_5cff1c5b0094e3e0e853861769f206fe);
+            
+        
+
+        marker_c24e05592027360c425e66b82e6197d5.bindPopup(popup_cd3633b2572c2b3bf5832b2a5ed510ea)
+        ;
+
+        
+    
+    
+            var marker_ae0e889054ee776f528e5da290591925 = L.marker(
+                [1.853, 9.779],
+                {}
+            ).addTo(map_3d5297916f34f5068ea24cc277149da5);
+        
+    
+            var icon_69ebb572c76f34d47f70817de4cdd846 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "ship", "iconColor": "white", "markerColor": "red", "prefix": "fa"}
+            );
+            marker_ae0e889054ee776f528e5da290591925.setIcon(icon_69ebb572c76f34d47f70817de4cdd846);
+        
+    
+        var popup_dc791f744211fb72c6bd7d6a87600674 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_a1392bfb8689bcff693296d77b00afaa = $(`<div id="html_a1392bfb8689bcff693296d77b00afaa" style="width: 100.0%; height: 100.0%;">                       <img src=https://snos.ro/media/cities/bata.JPG                       class="img_city" alt="image_city">                       <h3 class='title_city'>Bata (Equatorial Guinea) <img src=https://snos.ro/media/flags/eqguinea.jpg                       class="img_flag" alt="img_flag"></h3>                        <h5 class='last_visit'>last visit: Feb - 2016</h4>                       </div>`)[0];
+                popup_dc791f744211fb72c6bd7d6a87600674.setContent(html_a1392bfb8689bcff693296d77b00afaa);
+            
+        
+
+        marker_ae0e889054ee776f528e5da290591925.bindPopup(popup_dc791f744211fb72c6bd7d6a87600674)
+        ;
+
+        
+    
+    
+            var marker_a37216730833c1b15f7bb768cf41c4dc = L.marker(
+                [3.75, 8.737],
+                {}
+            ).addTo(map_3d5297916f34f5068ea24cc277149da5);
+        
+    
+            var icon_1c60a2fb252b24e8a3885d81b20af3f6 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "ship", "iconColor": "white", "markerColor": "red", "prefix": "fa"}
+            );
+            marker_a37216730833c1b15f7bb768cf41c4dc.setIcon(icon_1c60a2fb252b24e8a3885d81b20af3f6);
+        
+    
+        var popup_6aaf65dfd3bc43154391e1502cb36823 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_cc0f8f824fcdc58024e7fe6f41cc56fb = $(`<div id="html_cc0f8f824fcdc58024e7fe6f41cc56fb" style="width: 100.0%; height: 100.0%;">                       <img src=https://snos.ro/media/cities/malabo.jpg                       class="img_city" alt="image_city">                       <h3 class='title_city'>Malabo (Equatorial Guinea) <img src=https://snos.ro/media/flags/eqguinea.jpg                       class="img_flag" alt="img_flag"></h3>                        <h5 class='last_visit'>last visit: Feb - 2016</h4>                       </div>`)[0];
+                popup_6aaf65dfd3bc43154391e1502cb36823.setContent(html_cc0f8f824fcdc58024e7fe6f41cc56fb);
+            
+        
+
+        marker_a37216730833c1b15f7bb768cf41c4dc.bindPopup(popup_6aaf65dfd3bc43154391e1502cb36823)
+        ;
+
+        
+    
+    
+            var marker_4008e6eeab2cc1d32db0f29019df4867 = L.marker(
+                [5.666, 0.0],
+                {}
+            ).addTo(map_3d5297916f34f5068ea24cc277149da5);
+        
+    
+            var icon_731a02e9bca63155db0ad565955e45fa = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "ship", "iconColor": "white", "markerColor": "red", "prefix": "fa"}
+            );
+            marker_4008e6eeab2cc1d32db0f29019df4867.setIcon(icon_731a02e9bca63155db0ad565955e45fa);
+        
+    
+        var popup_884197c2238fcfde6ae271ed45aaaa6b = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_a06f1cbbeb53f480f9e72b016ec36649 = $(`<div id="html_a06f1cbbeb53f480f9e72b016ec36649" style="width: 100.0%; height: 100.0%;">                       <img src=https://snos.ro/media/cities/tema.jpg                       class="img_city" alt="image_city">                       <h3 class='title_city'>Tema (Ghana) <img src=https://snos.ro/media/flags/GHANA.JPG                       class="img_flag" alt="img_flag"></h3>                        <h5 class='last_visit'>last visit: Feb - 2016</h4>                       </div>`)[0];
+                popup_884197c2238fcfde6ae271ed45aaaa6b.setContent(html_a06f1cbbeb53f480f9e72b016ec36649);
+            
+        
+
+        marker_4008e6eeab2cc1d32db0f29019df4867.bindPopup(popup_884197c2238fcfde6ae271ed45aaaa6b)
+        ;
+
+        
+    
+    
+            var marker_7d36b2e43ac86250734eb60c3c15b51e = L.marker(
+                [4.902, -1.783],
+                {}
+            ).addTo(map_3d5297916f34f5068ea24cc277149da5);
+        
+    
+            var icon_79d2e0c2976741c6e8938f7b449f94d5 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "ship", "iconColor": "white", "markerColor": "red", "prefix": "fa"}
+            );
+            marker_7d36b2e43ac86250734eb60c3c15b51e.setIcon(icon_79d2e0c2976741c6e8938f7b449f94d5);
+        
+    
+        var popup_f212427655c5662ff312e268dde5a3a8 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_e49d43beb2eddcde7677e8fb7527e4ac = $(`<div id="html_e49d43beb2eddcde7677e8fb7527e4ac" style="width: 100.0%; height: 100.0%;">                       <img src=https://snos.ro/media/cities/takoradi.jpg                       class="img_city" alt="image_city">                       <h3 class='title_city'>Takoradi (Ghana) <img src=https://snos.ro/media/flags/GHANA.JPG                       class="img_flag" alt="img_flag"></h3>                        <h5 class='last_visit'>last visit: Jan - 2016</h4>                       </div>`)[0];
+                popup_f212427655c5662ff312e268dde5a3a8.setContent(html_e49d43beb2eddcde7677e8fb7527e4ac);
+            
+        
+
+        marker_7d36b2e43ac86250734eb60c3c15b51e.bindPopup(popup_f212427655c5662ff312e268dde5a3a8)
+        ;
+
+        
+    
+    
+            var marker_64aade9eb4b5f1e8b9f36317d355c438 = L.marker(
+                [5.345, -4.024],
+                {}
+            ).addTo(map_3d5297916f34f5068ea24cc277149da5);
+        
+    
+            var icon_eb8c98b27a4fdb65080ef9e1fa4dd933 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "ship", "iconColor": "white", "markerColor": "red", "prefix": "fa"}
+            );
+            marker_64aade9eb4b5f1e8b9f36317d355c438.setIcon(icon_eb8c98b27a4fdb65080ef9e1fa4dd933);
+        
+    
+        var popup_9539878d62c4e7681bb51eebf043ea2d = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_24a5bcc79f1e93c8ae9c23ddf16fc45e = $(`<div id="html_24a5bcc79f1e93c8ae9c23ddf16fc45e" style="width: 100.0%; height: 100.0%;">                       <img src=https://snos.ro/media/cities/abidjan.JPG                       class="img_city" alt="image_city">                       <h3 class='title_city'>Abidjan (Ivory Coast) <img src=https://snos.ro/media/flags/COTEDIVOIRE.GIF                       class="img_flag" alt="img_flag"></h3>                        <h5 class='last_visit'>last visit: Mar - 2016</h4>                       </div>`)[0];
+                popup_9539878d62c4e7681bb51eebf043ea2d.setContent(html_24a5bcc79f1e93c8ae9c23ddf16fc45e);
+            
+        
+
+        marker_64aade9eb4b5f1e8b9f36317d355c438.bindPopup(popup_9539878d62c4e7681bb51eebf043ea2d)
+        ;
+
+        
+    
+    
+            var marker_ced48f650262dee84dbc44a26973dfd8 = L.marker(
+                [33.59, -7.604],
+                {}
+            ).addTo(map_3d5297916f34f5068ea24cc277149da5);
+        
+    
+            var icon_06be93907a39ee93a7cd5ad563c9e600 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "ship", "iconColor": "white", "markerColor": "green", "prefix": "fa"}
+            );
+            marker_ced48f650262dee84dbc44a26973dfd8.setIcon(icon_06be93907a39ee93a7cd5ad563c9e600);
+        
+    
+        var popup_9312db5ffb1923c529885c7efacfe1f9 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_e1992b1f73c99c9692532412e2d3321b = $(`<div id="html_e1992b1f73c99c9692532412e2d3321b" style="width: 100.0%; height: 100.0%;">                       <img src=https://snos.ro/media/cities/casablanca.jpg                       class="img_city" alt="image_city">                       <h3 class='title_city'>Casablanca (Morocoo) <img src=https://snos.ro/media/flags/MOROCCO.GIF                       class="img_flag" alt="img_flag"></h3>                        <h5 class='last_visit'>last visit: Apr - 2016</h4>                       </div>`)[0];
+                popup_9312db5ffb1923c529885c7efacfe1f9.setContent(html_e1992b1f73c99c9692532412e2d3321b);
+            
+        
+
+        marker_ced48f650262dee84dbc44a26973dfd8.bindPopup(popup_9312db5ffb1923c529885c7efacfe1f9)
+        ;
+
+        
+    
+    
+            var marker_2d15d93d221f6073cbf45a5c192317dd = L.marker(
+                [38.737, -9.143],
+                {}
+            ).addTo(map_3d5297916f34f5068ea24cc277149da5);
+        
+    
+            var icon_00aec62218b655bce03c0e69fd2a1460 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "ship", "iconColor": "white", "markerColor": "green", "prefix": "fa"}
+            );
+            marker_2d15d93d221f6073cbf45a5c192317dd.setIcon(icon_00aec62218b655bce03c0e69fd2a1460);
+        
+    
+        var popup_b15ee6676be98e45d4f05a73eea42378 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_4a648d1bb8fc105e054c39c0e7e0c997 = $(`<div id="html_4a648d1bb8fc105e054c39c0e7e0c997" style="width: 100.0%; height: 100.0%;">                       <img src=https://snos.ro/media/cities/lisbon.jpg                       class="img_city" alt="image_city">                       <h3 class='title_city'>Lisbon (Portugal) <img src=https://snos.ro/media/flags/PORTUGAL.GIF                       class="img_flag" alt="img_flag"></h3>                        <h5 class='last_visit'>last visit: Apr - 2016</h4>                       </div>`)[0];
+                popup_b15ee6676be98e45d4f05a73eea42378.setContent(html_4a648d1bb8fc105e054c39c0e7e0c997);
+            
+        
+
+        marker_2d15d93d221f6073cbf45a5c192317dd.bindPopup(popup_b15ee6676be98e45d4f05a73eea42378)
+        ;
+
+        
+    
+    
+            var marker_5aa060e6a0796ef7c6eda34241555132 = L.marker(
+                [42.393, -8.7],
+                {}
+            ).addTo(map_3d5297916f34f5068ea24cc277149da5);
+        
+    
+            var icon_f62e768aa9591405574fa5ce8fea31b4 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "ship", "iconColor": "white", "markerColor": "red", "prefix": "fa"}
+            );
+            marker_5aa060e6a0796ef7c6eda34241555132.setIcon(icon_f62e768aa9591405574fa5ce8fea31b4);
+        
+    
+        var popup_6a38e44d38b0b68380861f2d265647a7 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_c7c75ae682e172eb5dab2dfac4dd774d = $(`<div id="html_c7c75ae682e172eb5dab2dfac4dd774d" style="width: 100.0%; height: 100.0%;">                       <img src=https://snos.ro/media/cities/marin.jpg                       class="img_city" alt="image_city">                       <h3 class='title_city'>Marin (Spain) <img src=https://snos.ro/media/flags/SPAIN.GIF                       class="img_flag" alt="img_flag"></h3>                        <h5 class='last_visit'>last visit: May - 2016</h4>                       </div>`)[0];
+                popup_6a38e44d38b0b68380861f2d265647a7.setContent(html_c7c75ae682e172eb5dab2dfac4dd774d);
+            
+        
+
+        marker_5aa060e6a0796ef7c6eda34241555132.bindPopup(popup_6a38e44d38b0b68380861f2d265647a7)
+        ;
+
+        
+    
+    
+            var marker_88fc88480da6a15f0ea0a3a3e0077429 = L.marker(
+                [42.216, -8.617],
+                {}
+            ).addTo(map_3d5297916f34f5068ea24cc277149da5);
+        
+    
+            var icon_0860d3b69fad48ff260bb6a5d7403f85 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "ship", "iconColor": "white", "markerColor": "green", "prefix": "fa"}
+            );
+            marker_88fc88480da6a15f0ea0a3a3e0077429.setIcon(icon_0860d3b69fad48ff260bb6a5d7403f85);
+        
+    
+        var popup_ce9d200b3028c7361effce3171c115a0 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_d6fbf3370455ff7c94c1b502a9f9b283 = $(`<div id="html_d6fbf3370455ff7c94c1b502a9f9b283" style="width: 100.0%; height: 100.0%;">                       <img src=https://snos.ro/media/cities/vigo.jpg                       class="img_city" alt="image_city">                       <h3 class='title_city'>Vigo (Spain) <img src=https://snos.ro/media/flags/SPAIN.GIF                       class="img_flag" alt="img_flag"></h3>                        <h5 class='last_visit'>last visit: May - 2016</h4>                       </div>`)[0];
+                popup_ce9d200b3028c7361effce3171c115a0.setContent(html_d6fbf3370455ff7c94c1b502a9f9b283);
+            
+        
+
+        marker_88fc88480da6a15f0ea0a3a3e0077429.bindPopup(popup_ce9d200b3028c7361effce3171c115a0)
+        ;
+
+        
+    
+    
+            var marker_539da21452f9560012b3ef826375da15 = L.marker(
+                [43.263, -2.935],
+                {}
+            ).addTo(map_3d5297916f34f5068ea24cc277149da5);
+        
+    
+            var icon_86ca100677a2b81a3aed3a27fefb7c44 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "ship", "iconColor": "white", "markerColor": "green", "prefix": "fa"}
+            );
+            marker_539da21452f9560012b3ef826375da15.setIcon(icon_86ca100677a2b81a3aed3a27fefb7c44);
+        
+    
+        var popup_01f5d44216095309a94fa1b0f02ffe75 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_336b03df8342e746dff7357d565e703b = $(`<div id="html_336b03df8342e746dff7357d565e703b" style="width: 100.0%; height: 100.0%;">                       <img src=https://snos.ro/media/cities/bilbao.jpg                       class="img_city" alt="image_city">                       <h3 class='title_city'>Bilbao (Spain) <img src=https://snos.ro/media/flags/SPAIN.GIF                       class="img_flag" alt="img_flag"></h3>                        <h5 class='last_visit'>last visit: May - 2016</h4>                       </div>`)[0];
+                popup_01f5d44216095309a94fa1b0f02ffe75.setContent(html_336b03df8342e746dff7357d565e703b);
+            
+        
+
+        marker_539da21452f9560012b3ef826375da15.bindPopup(popup_01f5d44216095309a94fa1b0f02ffe75)
+        ;
+
+        
+    
+    
+            var marker_44d854764feb6640c96c691ea63dcfa3 = L.marker(
+                [43.214, 27.915],
+                {}
+            ).addTo(map_3d5297916f34f5068ea24cc277149da5);
+        
+    
+            var icon_d5eb893d5b9e8f18d11c0aa1e2f5f8d4 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "ship", "iconColor": "white", "markerColor": "green", "prefix": "fa"}
+            );
+            marker_44d854764feb6640c96c691ea63dcfa3.setIcon(icon_d5eb893d5b9e8f18d11c0aa1e2f5f8d4);
+        
+    
+        var popup_8eb08fa2d5e21edff729e6bda4736a10 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_4f8ba051e619cf5d58281fe77b5579f0 = $(`<div id="html_4f8ba051e619cf5d58281fe77b5579f0" style="width: 100.0%; height: 100.0%;">                       <img src=https://snos.ro/media/cities/varna.jpg                       class="img_city" alt="image_city">                       <h3 class='title_city'>Varna (Bulgaria) <img src=https://snos.ro/media/flags/BULGARIA.GIF                       class="img_flag" alt="img_flag"></h3>                        <h5 class='last_visit'>last visit: Jul - 2017</h4>                       </div>`)[0];
+                popup_8eb08fa2d5e21edff729e6bda4736a10.setContent(html_4f8ba051e619cf5d58281fe77b5579f0);
+            
+        
+
+        marker_44d854764feb6640c96c691ea63dcfa3.bindPopup(popup_8eb08fa2d5e21edff729e6bda4736a10)
+        ;
+
+        
+    
+    
+            var marker_3c96a0cea65a12bac70bdc63c4dc4fea = L.marker(
+                [36.857, 36.134],
+                {}
+            ).addTo(map_3d5297916f34f5068ea24cc277149da5);
+        
+    
+            var icon_4ffeb25e0641de97848960a1af9b0397 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "ship", "iconColor": "white", "markerColor": "red", "prefix": "fa"}
+            );
+            marker_3c96a0cea65a12bac70bdc63c4dc4fea.setIcon(icon_4ffeb25e0641de97848960a1af9b0397);
+        
+    
+        var popup_d9b3242e179cd2eaa6afcbdd558674d3 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_9fafa1f26e10cd81065ed4d699c8404a = $(`<div id="html_9fafa1f26e10cd81065ed4d699c8404a" style="width: 100.0%; height: 100.0%;">                       <img src=https://snos.ro/media/cities/nemrut.jpg                       class="img_city" alt="image_city">                       <h3 class='title_city'>Nemrut (Turkey) <img src=https://snos.ro/media/flags/TURKEY.GIF                       class="img_flag" alt="img_flag"></h3>                        <h5 class='last_visit'>last visit: Apr - 2017</h4>                       </div>`)[0];
+                popup_d9b3242e179cd2eaa6afcbdd558674d3.setContent(html_9fafa1f26e10cd81065ed4d699c8404a);
+            
+        
+
+        marker_3c96a0cea65a12bac70bdc63c4dc4fea.bindPopup(popup_d9b3242e179cd2eaa6afcbdd558674d3)
+        ;
+
+        
+    
+    
+            var marker_2d10a2fcb2d6658c677b3deed667b729 = L.marker(
+                [36.857, 36.134],
+                {}
+            ).addTo(map_3d5297916f34f5068ea24cc277149da5);
+        
+    
+            var icon_1e3358457767ef1b5c5978ef367a7d48 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "ship", "iconColor": "white", "markerColor": "red", "prefix": "fa"}
+            );
+            marker_2d10a2fcb2d6658c677b3deed667b729.setIcon(icon_1e3358457767ef1b5c5978ef367a7d48);
+        
+    
+        var popup_a2088882c6ac72e81f51348548f93717 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_bcfa43e7c224849413a945d86144d9fe = $(`<div id="html_bcfa43e7c224849413a945d86144d9fe" style="width: 100.0%; height: 100.0%;">                       <img src=https://snos.ro/media/cities/nemrut.jpg                       class="img_city" alt="image_city">                       <h3 class='title_city'>Nemrut (Turkey) <img src=https://snos.ro/media/flags/TURKEY.GIF                       class="img_flag" alt="img_flag"></h3>                        <h5 class='last_visit'>last visit: Apr - 2017</h4>                       </div>`)[0];
+                popup_a2088882c6ac72e81f51348548f93717.setContent(html_bcfa43e7c224849413a945d86144d9fe);
+            
+        
+
+        marker_2d10a2fcb2d6658c677b3deed667b729.bindPopup(popup_a2088882c6ac72e81f51348548f93717)
+        ;
+
+        
+    
+    
+            var marker_3126c9e75e8fd3b16231f1f8e339841a = L.marker(
+                [40.785, 29.609],
+                {}
+            ).addTo(map_3d5297916f34f5068ea24cc277149da5);
+        
+    
+            var icon_fd2338272e993315361bca90b0cc7048 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "ship", "iconColor": "white", "markerColor": "green", "prefix": "fa"}
+            );
+            marker_3126c9e75e8fd3b16231f1f8e339841a.setIcon(icon_fd2338272e993315361bca90b0cc7048);
+        
+    
+        var popup_53fc40cea3a03db6b1195d4ef467a7e0 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_25baa39156b7d167dd1fff5a293ce1d7 = $(`<div id="html_25baa39156b7d167dd1fff5a293ce1d7" style="width: 100.0%; height: 100.0%;">                       <img src=https://snos.ro/media/cities/hereke.JPG                       class="img_city" alt="image_city">                       <h3 class='title_city'>Hereke (Turkey) <img src=https://snos.ro/media/flags/TURKEY.GIF                       class="img_flag" alt="img_flag"></h3>                        <h5 class='last_visit'>last visit: May - 2017</h4>                       </div>`)[0];
+                popup_53fc40cea3a03db6b1195d4ef467a7e0.setContent(html_25baa39156b7d167dd1fff5a293ce1d7);
+            
+        
+
+        marker_3126c9e75e8fd3b16231f1f8e339841a.bindPopup(popup_53fc40cea3a03db6b1195d4ef467a7e0)
+        ;
+
+        
+    
+    
+            var marker_de768963e47ad4f28f3433f7da8dde16 = L.marker(
+                [40.441, 27.138],
+                {}
+            ).addTo(map_3d5297916f34f5068ea24cc277149da5);
+        
+    
+            var icon_a58d776b8e4ed24ea4b963808856b043 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "ship", "iconColor": "white", "markerColor": "red", "prefix": "fa"}
+            );
+            marker_de768963e47ad4f28f3433f7da8dde16.setIcon(icon_a58d776b8e4ed24ea4b963808856b043);
+        
+    
+        var popup_77b7e5199c8c951e1eda67edf4f5f1c7 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_2d8596be1cd8f53b8300410d23f69ed1 = $(`<div id="html_2d8596be1cd8f53b8300410d23f69ed1" style="width: 100.0%; height: 100.0%;">                       <img src=https://snos.ro/media/cities/icdas.jpg                       class="img_city" alt="image_city">                       <h3 class='title_city'>Icdas (Turkey) <img src=https://snos.ro/media/flags/TURKEY.GIF                       class="img_flag" alt="img_flag"></h3>                        <h5 class='last_visit'>last visit: May - 2017</h4>                       </div>`)[0];
+                popup_77b7e5199c8c951e1eda67edf4f5f1c7.setContent(html_2d8596be1cd8f53b8300410d23f69ed1);
+            
+        
+
+        marker_de768963e47ad4f28f3433f7da8dde16.bindPopup(popup_77b7e5199c8c951e1eda67edf4f5f1c7)
+        ;
+
+        
+    
+    
+            var marker_9deee1fc3a7edd43bbf897068248436e = L.marker(
+                [40.767, 29.533],
+                {}
+            ).addTo(map_3d5297916f34f5068ea24cc277149da5);
+        
+    
+            var icon_b74c087d47071239fb2eaaabe55ef6fb = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "ship", "iconColor": "white", "markerColor": "red", "prefix": "fa"}
+            );
+            marker_9deee1fc3a7edd43bbf897068248436e.setIcon(icon_b74c087d47071239fb2eaaabe55ef6fb);
+        
+    
+        var popup_7d66ef8b1a7790b8cb7eb6a561aa0d4c = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_7a1ce80c534bb63768882333e16261a2 = $(`<div id="html_7a1ce80c534bb63768882333e16261a2" style="width: 100.0%; height: 100.0%;">                       <img src=https://snos.ro/media/cities/diliskelesi.JPG                       class="img_city" alt="image_city">                       <h3 class='title_city'>Diliskelesi (Turkey) <img src=https://snos.ro/media/flags/TURKEY.GIF                       class="img_flag" alt="img_flag"></h3>                        <h5 class='last_visit'>last visit: Jun - 2017</h4>                       </div>`)[0];
+                popup_7d66ef8b1a7790b8cb7eb6a561aa0d4c.setContent(html_7a1ce80c534bb63768882333e16261a2);
+            
+        
+
+        marker_9deee1fc3a7edd43bbf897068248436e.bindPopup(popup_7d66ef8b1a7790b8cb7eb6a561aa0d4c)
+        ;
+
+        
+    
+    
+            var marker_382e88d45eb73cba8265ebb3863806af = L.marker(
+                [45.271, 37.382],
+                {}
+            ).addTo(map_3d5297916f34f5068ea24cc277149da5);
+        
+    
+            var icon_eb1dff87a933ccd5e792886501f211b6 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "ship", "iconColor": "white", "markerColor": "green", "prefix": "fa"}
+            );
+            marker_382e88d45eb73cba8265ebb3863806af.setIcon(icon_eb1dff87a933ccd5e792886501f211b6);
+        
+    
+        var popup_b5e2320c66413e5dd2c4c4ff2802045a = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_a83de943034dccbeb9df6a49144999d1 = $(`<div id="html_a83de943034dccbeb9df6a49144999d1" style="width: 100.0%; height: 100.0%;">                       <img src=https://snos.ro/media/cities/temryuk.JPG                       class="img_city" alt="image_city">                       <h3 class='title_city'>Temryuk (Russia) <img src=https://snos.ro/media/flags/RUSSIA.GIF                       class="img_flag" alt="img_flag"></h3>                        <h5 class='last_visit'>last visit: Jun - 2017</h4>                       </div>`)[0];
+                popup_b5e2320c66413e5dd2c4c4ff2802045a.setContent(html_a83de943034dccbeb9df6a49144999d1);
+            
+        
+
+        marker_382e88d45eb73cba8265ebb3863806af.bindPopup(popup_b5e2320c66413e5dd2c4c4ff2802045a)
+        ;
+
+        
+    
+    
+            var marker_dc35ffa8b9852bce1a356cbe9bf28711 = L.marker(
+                [41.28, 31.42],
+                {}
+            ).addTo(map_3d5297916f34f5068ea24cc277149da5);
+        
+    
+            var icon_75438a4868698b0962ea3a409df7b213 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "ship", "iconColor": "white", "markerColor": "green", "prefix": "fa"}
+            );
+            marker_dc35ffa8b9852bce1a356cbe9bf28711.setIcon(icon_75438a4868698b0962ea3a409df7b213);
+        
+    
+        var popup_e5387defac6ce0d172df7e145cdff30f = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_a6239da9c1752fc6c48f20414be4f232 = $(`<div id="html_a6239da9c1752fc6c48f20414be4f232" style="width: 100.0%; height: 100.0%;">                       <img src=https://snos.ro/media/cities/eregli.jpg                       class="img_city" alt="image_city">                       <h3 class='title_city'>Eregli (Turkey) <img src=https://snos.ro/media/flags/TURKEY.GIF                       class="img_flag" alt="img_flag"></h3>                        <h5 class='last_visit'>last visit: Jul - 2017</h4>                       </div>`)[0];
+                popup_e5387defac6ce0d172df7e145cdff30f.setContent(html_a6239da9c1752fc6c48f20414be4f232);
+            
+        
+
+        marker_dc35ffa8b9852bce1a356cbe9bf28711.bindPopup(popup_e5387defac6ce0d172df7e145cdff30f)
+        ;
+
+        
+    
+    
+            var marker_088c9853747a026cdc5de8b0a9905b1b = L.marker(
+                [35.8992, 14.5141],
+                {}
+            ).addTo(map_3d5297916f34f5068ea24cc277149da5);
+        
+    
+            var icon_f0c234c262a283887bb24377070021b9 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "ship", "iconColor": "white", "markerColor": "green", "prefix": "fa"}
+            );
+            marker_088c9853747a026cdc5de8b0a9905b1b.setIcon(icon_f0c234c262a283887bb24377070021b9);
+        
+    
+        var popup_baa6dfc312a979147f702302eed626d0 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_4cb975e1d51bbbf218e05f008d2f64e5 = $(`<div id="html_4cb975e1d51bbbf218e05f008d2f64e5" style="width: 100.0%; height: 100.0%;">                       <img src=https://snos.ro/media/cities/valleta.JPG                       class="img_city" alt="image_city">                       <h3 class='title_city'>Valletta (Malta) <img src=https://snos.ro/media/flags/MALTA.GIF                       class="img_flag" alt="img_flag"></h3>                        <h5 class='last_visit'>last visit: Apr - 2019</h4>                       </div>`)[0];
+                popup_baa6dfc312a979147f702302eed626d0.setContent(html_4cb975e1d51bbbf218e05f008d2f64e5);
+            
+        
+
+        marker_088c9853747a026cdc5de8b0a9905b1b.bindPopup(popup_baa6dfc312a979147f702302eed626d0)
+        ;
+
+        
+    
+    
+            var marker_76323dac1f21a1393781d3860aec0665 = L.marker(
+                [21.543, 39.173],
+                {}
+            ).addTo(map_3d5297916f34f5068ea24cc277149da5);
+        
+    
+            var icon_e86a42afe854672e7707346b148af39a = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "ship", "iconColor": "white", "markerColor": "red", "prefix": "fa"}
+            );
+            marker_76323dac1f21a1393781d3860aec0665.setIcon(icon_e86a42afe854672e7707346b148af39a);
+        
+    
+        var popup_7a35de2930c08fe23bc532d981aa9fbb = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_26a5a8eded6987402fcb5b54b0ab6e33 = $(`<div id="html_26a5a8eded6987402fcb5b54b0ab6e33" style="width: 100.0%; height: 100.0%;">                       <img src=https://snos.ro/media/cities/jeddah.jpeg                       class="img_city" alt="image_city">                       <h3 class='title_city'>Jeddah (Saudi Arabia) <img src=https://snos.ro/media/flags/SAUDI.GIF                       class="img_flag" alt="img_flag"></h3>                        <h5 class='last_visit'>last visit: Sep - 2023</h4>                       </div>`)[0];
+                popup_7a35de2930c08fe23bc532d981aa9fbb.setContent(html_26a5a8eded6987402fcb5b54b0ab6e33);
+            
+        
+
+        marker_76323dac1f21a1393781d3860aec0665.bindPopup(popup_7a35de2930c08fe23bc532d981aa9fbb)
+        ;
+
+        
+    
+    
+            var marker_2db62766f7dcb6e490845a16b047ad6d = L.marker(
+                [25.036, 55.122],
+                {}
+            ).addTo(map_3d5297916f34f5068ea24cc277149da5);
+        
+    
+            var icon_bf6a5f87d88612b572e1dbfa025644dc = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "ship", "iconColor": "white", "markerColor": "red", "prefix": "fa"}
+            );
+            marker_2db62766f7dcb6e490845a16b047ad6d.setIcon(icon_bf6a5f87d88612b572e1dbfa025644dc);
+        
+    
+        var popup_dce424ea374441958a5ab6368595f26d = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_8d733e0d4354743a564c48516561da62 = $(`<div id="html_8d733e0d4354743a564c48516561da62" style="width: 100.0%; height: 100.0%;">                       <img src=https://snos.ro/media/cities/jebelali.jpeg                       class="img_city" alt="image_city">                       <h3 class='title_city'>Jebel Ali (UAE) <img src=https://snos.ro/media/flags/UAE.jpg                       class="img_flag" alt="img_flag"></h3>                        <h5 class='last_visit'>last visit: Sep - 2023</h4>                       </div>`)[0];
+                popup_dce424ea374441958a5ab6368595f26d.setContent(html_8d733e0d4354743a564c48516561da62);
+            
+        
+
+        marker_2db62766f7dcb6e490845a16b047ad6d.bindPopup(popup_dce424ea374441958a5ab6368595f26d)
+        ;
+
+        
+    
+    
+            var marker_6a3b0e5b54becc7efdc5fc74da3939ec = L.marker(
+                [22.802, 113.525],
+                {}
+            ).addTo(map_3d5297916f34f5068ea24cc277149da5);
+        
+    
+            var icon_e0fbfe97393d316ad5c675a0bd352068 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "ship", "iconColor": "white", "markerColor": "red", "prefix": "fa"}
+            );
+            marker_6a3b0e5b54becc7efdc5fc74da3939ec.setIcon(icon_e0fbfe97393d316ad5c675a0bd352068);
+        
+    
+        var popup_189dca403c73f39a86681131c657dc34 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_eaa2d6db37973a8e207463fd169cffd0 = $(`<div id="html_eaa2d6db37973a8e207463fd169cffd0" style="width: 100.0%; height: 100.0%;">                       <img src=https://snos.ro/media/cities/nansha.jpg                       class="img_city" alt="image_city">                       <h3 class='title_city'>Nansha (China) <img src=https://snos.ro/media/flags/CHINA.GIF                       class="img_flag" alt="img_flag"></h3>                        <h5 class='last_visit'>last visit: Oct - 2023</h4>                       </div>`)[0];
+                popup_189dca403c73f39a86681131c657dc34.setContent(html_eaa2d6db37973a8e207463fd169cffd0);
+            
+        
+
+        marker_6a3b0e5b54becc7efdc5fc74da3939ec.bindPopup(popup_189dca403c73f39a86681131c657dc34)
+        ;
+
+        
+    
+    
+            var marker_912bad7662090341c71feaf9db6cde0a = L.marker(
+                [41.39, 2.154],
+                {}
+            ).addTo(map_3d5297916f34f5068ea24cc277149da5);
+        
+    
+            var icon_1cc733a67225b4f8a30036e58521da2c = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "ship", "iconColor": "white", "markerColor": "green", "prefix": "fa"}
+            );
+            marker_912bad7662090341c71feaf9db6cde0a.setIcon(icon_1cc733a67225b4f8a30036e58521da2c);
+        
+    
+        var popup_d2dd4e33ec96dab054cef81200d98690 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_193c699eb501db03f0d38e95ef9d530a = $(`<div id="html_193c699eb501db03f0d38e95ef9d530a" style="width: 100.0%; height: 100.0%;">                       <img src=https://snos.ro/media/cities/barcelona.JPG                       class="img_city" alt="image_city">                       <h3 class='title_city'>Barcelona (Spain) <img src=https://snos.ro/media/flags/SPAIN.GIF                       class="img_flag" alt="img_flag"></h3>                        <h5 class='last_visit'>last visit: Apr - 2019</h4>                       </div>`)[0];
+                popup_d2dd4e33ec96dab054cef81200d98690.setContent(html_193c699eb501db03f0d38e95ef9d530a);
+            
+        
+
+        marker_912bad7662090341c71feaf9db6cde0a.bindPopup(popup_d2dd4e33ec96dab054cef81200d98690)
+        ;
+
+        
+    
+    
+            var marker_d1887b6e677f67d7399c4d4d05404a7f = L.marker(
+                [43.202, 5.205],
+                {}
+            ).addTo(map_3d5297916f34f5068ea24cc277149da5);
+        
+    
+            var icon_d1ea3041c9d00f8c745848a40bf91198 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "ship", "iconColor": "white", "markerColor": "red", "prefix": "fa"}
+            );
+            marker_d1887b6e677f67d7399c4d4d05404a7f.setIcon(icon_d1ea3041c9d00f8c745848a40bf91198);
+        
+    
+        var popup_cbd030ffc5b1841381dc998144a9e0c6 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_09510b6270d6b65b45e62c8e3d1bde01 = $(`<div id="html_09510b6270d6b65b45e62c8e3d1bde01" style="width: 100.0%; height: 100.0%;">                       <img src=https://snos.ro/media/cities/marseille.jpg                       class="img_city" alt="image_city">                       <h3 class='title_city'>Marseille (France) <img src=https://snos.ro/media/flags/FRANCE.GIF                       class="img_flag" alt="img_flag"></h3>                        <h5 class='last_visit'>last visit: Aug - 2021</h4>                       </div>`)[0];
+                popup_cbd030ffc5b1841381dc998144a9e0c6.setContent(html_09510b6270d6b65b45e62c8e3d1bde01);
+            
+        
+
+        marker_d1887b6e677f67d7399c4d4d05404a7f.bindPopup(popup_cbd030ffc5b1841381dc998144a9e0c6)
+        ;
+
+        
+    
+    
+            var marker_32d1bbb6aba9d534605bd5f67018781c = L.marker(
+                [44.433, 8.767],
+                {}
+            ).addTo(map_3d5297916f34f5068ea24cc277149da5);
+        
+    
+            var icon_492628ab006cec358b5475acae0d97ee = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "ship", "iconColor": "white", "markerColor": "green", "prefix": "fa"}
+            );
+            marker_32d1bbb6aba9d534605bd5f67018781c.setIcon(icon_492628ab006cec358b5475acae0d97ee);
+        
+    
+        var popup_aad441cc3772ee47df6ccd789fd3a902 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_d8e3a9ed5a1f2bc69ad8f9ca2bc71d60 = $(`<div id="html_d8e3a9ed5a1f2bc69ad8f9ca2bc71d60" style="width: 100.0%; height: 100.0%;">                       <img src=https://snos.ro/media/cities/voltri.jpg                       class="img_city" alt="image_city">                       <h3 class='title_city'>Voltri-Genoa (Italy) <img src=https://snos.ro/media/flags/ITALY.GIF                       class="img_flag" alt="img_flag"></h3>                        <h5 class='last_visit'>last visit: Apr - 2019</h4>                       </div>`)[0];
+                popup_aad441cc3772ee47df6ccd789fd3a902.setContent(html_d8e3a9ed5a1f2bc69ad8f9ca2bc71d60);
+            
+        
+
+        marker_32d1bbb6aba9d534605bd5f67018781c.bindPopup(popup_aad441cc3772ee47df6ccd789fd3a902)
+        ;
+
+        
+    
+    
+            var marker_50f4411db27ad7d2f883ea4833250d2c = L.marker(
+                [22.543, 114.063],
+                {}
+            ).addTo(map_3d5297916f34f5068ea24cc277149da5);
+        
+    
+            var icon_79558d807b1e9581daf40080cbfe0922 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "ship", "iconColor": "white", "markerColor": "green", "prefix": "fa"}
+            );
+            marker_50f4411db27ad7d2f883ea4833250d2c.setIcon(icon_79558d807b1e9581daf40080cbfe0922);
+        
+    
+        var popup_42dd9142587951c5dc5a938f3693bf98 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_f82e241de7cf4e26479b66804d7cb168 = $(`<div id="html_f82e241de7cf4e26479b66804d7cb168" style="width: 100.0%; height: 100.0%;">                       <img src=https://snos.ro/media/cities/shenzen.jpg                       class="img_city" alt="image_city">                       <h3 class='title_city'>Shenzen (China) <img src=https://snos.ro/media/flags/CHINA.GIF                       class="img_flag" alt="img_flag"></h3>                        <h5 class='last_visit'>last visit: Dec - 2019</h4>                       </div>`)[0];
+                popup_42dd9142587951c5dc5a938f3693bf98.setContent(html_f82e241de7cf4e26479b66804d7cb168);
+            
+        
+
+        marker_50f4411db27ad7d2f883ea4833250d2c.bindPopup(popup_42dd9142587951c5dc5a938f3693bf98)
+        ;
+
+        
+    
+    
+            var marker_a9292efbc9b61ca8fbdbfee234b156dc = L.marker(
+                [50.91, -1.404],
+                {}
+            ).addTo(map_3d5297916f34f5068ea24cc277149da5);
+        
+    
+            var icon_e6e35e66d48bd142fef61e84dcdd7c16 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "ship", "iconColor": "white", "markerColor": "green", "prefix": "fa"}
+            );
+            marker_a9292efbc9b61ca8fbdbfee234b156dc.setIcon(icon_e6e35e66d48bd142fef61e84dcdd7c16);
+        
+    
+        var popup_31db02721ca87101bfecc1d4f5b2a566 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_0627e9275753eaba2e04059597c4f112 = $(`<div id="html_0627e9275753eaba2e04059597c4f112" style="width: 100.0%; height: 100.0%;">                       <img src=https://snos.ro/media/cities/southampton.jpg                       class="img_city" alt="image_city">                       <h3 class='title_city'>Southampton (England) <img src=https://snos.ro/media/flags/england.jpg                       class="img_flag" alt="img_flag"></h3>                        <h5 class='last_visit'>last visit: Apr - 2020</h4>                       </div>`)[0];
+                popup_31db02721ca87101bfecc1d4f5b2a566.setContent(html_0627e9275753eaba2e04059597c4f112);
+            
+        
+
+        marker_a9292efbc9b61ca8fbdbfee234b156dc.bindPopup(popup_31db02721ca87101bfecc1d4f5b2a566)
+        ;
+
+        
+    
+    
+            var marker_622fbcaf6a86a11f6e7e7b60903caff8 = L.marker(
+                [53.551, 9.994],
+                {}
+            ).addTo(map_3d5297916f34f5068ea24cc277149da5);
+        
+    
+            var icon_821bb26572c7c5493879875f0c2aa2fd = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "ship", "iconColor": "white", "markerColor": "green", "prefix": "fa"}
+            );
+            marker_622fbcaf6a86a11f6e7e7b60903caff8.setIcon(icon_821bb26572c7c5493879875f0c2aa2fd);
+        
+    
+        var popup_a7eddd28904bbd34f477713404d39097 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_b78024be40baf15effb2a9b015b183c4 = $(`<div id="html_b78024be40baf15effb2a9b015b183c4" style="width: 100.0%; height: 100.0%;">                       <img src=https://snos.ro/media/cities/hamburg.jpg                       class="img_city" alt="image_city">                       <h3 class='title_city'>Hamburg (Germany) <img src=https://snos.ro/media/flags/GERMANY.GIF                       class="img_flag" alt="img_flag"></h3>                        <h5 class='last_visit'>last visit: Aug - 2023</h4>                       </div>`)[0];
+                popup_a7eddd28904bbd34f477713404d39097.setContent(html_b78024be40baf15effb2a9b015b183c4);
+            
+        
+
+        marker_622fbcaf6a86a11f6e7e7b60903caff8.bindPopup(popup_a7eddd28904bbd34f477713404d39097)
+        ;
+
+        
+    
+    
+            var marker_98a625995b48074e01174af43d481a09 = L.marker(
+                [51.905, 4.467],
+                {}
+            ).addTo(map_3d5297916f34f5068ea24cc277149da5);
+        
+    
+            var icon_de64a2bf5fee3245dc0ad3979fe1dc80 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "ship", "iconColor": "white", "markerColor": "red", "prefix": "fa"}
+            );
+            marker_98a625995b48074e01174af43d481a09.setIcon(icon_de64a2bf5fee3245dc0ad3979fe1dc80);
+        
+    
+        var popup_6b2ca440cf23c5f457377cc6edbcd35a = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_3e54c45a5dae6c540e87dd3066104cde = $(`<div id="html_3e54c45a5dae6c540e87dd3066104cde" style="width: 100.0%; height: 100.0%;">                       <img src=https://snos.ro/media/cities/rotterdam.jpg                       class="img_city" alt="image_city">                       <h3 class='title_city'>Rotterdam (Netherlands) <img src=https://snos.ro/media/flags/NED.GIF                       class="img_flag" alt="img_flag"></h3>                        <h5 class='last_visit'>last visit: Apr - 2020</h4>                       </div>`)[0];
+                popup_6b2ca440cf23c5f457377cc6edbcd35a.setContent(html_3e54c45a5dae6c540e87dd3066104cde);
+            
+        
+
+        marker_98a625995b48074e01174af43d481a09.bindPopup(popup_6b2ca440cf23c5f457377cc6edbcd35a)
+        ;
+
+        
+    
+    
+            var marker_b7120cabda75062fee6f2401a455ce2b = L.marker(
+                [39.343, 117.362],
+                {}
+            ).addTo(map_3d5297916f34f5068ea24cc277149da5);
+        
+    
+            var icon_0a58932d004f8816721922128affafe8 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "ship", "iconColor": "white", "markerColor": "red", "prefix": "fa"}
+            );
+            marker_b7120cabda75062fee6f2401a455ce2b.setIcon(icon_0a58932d004f8816721922128affafe8);
+        
+    
+        var popup_a9679b47050222b22e49af8a11f8389b = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_352a04431c5e119a2d5888f0f77d3880 = $(`<div id="html_352a04431c5e119a2d5888f0f77d3880" style="width: 100.0%; height: 100.0%;">                       <img src=https://snos.ro/media/cities/tianjin.jpg                       class="img_city" alt="image_city">                       <h3 class='title_city'>Tianjin (China) <img src=https://snos.ro/media/flags/CHINA.GIF                       class="img_flag" alt="img_flag"></h3>                        <h5 class='last_visit'>last visit: Mar - 2020</h4>                       </div>`)[0];
+                popup_a9679b47050222b22e49af8a11f8389b.setContent(html_352a04431c5e119a2d5888f0f77d3880);
+            
+        
+
+        marker_b7120cabda75062fee6f2401a455ce2b.bindPopup(popup_a9679b47050222b22e49af8a11f8389b)
+        ;
+
+        
+    
+    
+            var marker_209568783ed1d18abda8f3cc768c333f = L.marker(
+                [8.373, -81.534],
+                {}
+            ).addTo(map_3d5297916f34f5068ea24cc277149da5);
+        
+    
+            var icon_878029264b88282678f2830d50e70f1f = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "ship", "iconColor": "white", "markerColor": "red", "prefix": "fa"}
+            );
+            marker_209568783ed1d18abda8f3cc768c333f.setIcon(icon_878029264b88282678f2830d50e70f1f);
+        
+    
+        var popup_c17a9444e9259f1230c6db9a4662a1ef = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_d4516f3dca58c9aa34b10600398d94f0 = $(`<div id="html_d4516f3dca58c9aa34b10600398d94f0" style="width: 100.0%; height: 100.0%;">                       <img src=https://snos.ro/media/cities/cristobal.JPG                       class="img_city" alt="image_city">                       <h3 class='title_city'>Cristobal (Panama) <img src=https://snos.ro/media/flags/PANAMA.GIF                       class="img_flag" alt="img_flag"></h3>                        <h5 class='last_visit'>last visit: Oct - 2021</h4>                       </div>`)[0];
+                popup_c17a9444e9259f1230c6db9a4662a1ef.setContent(html_d4516f3dca58c9aa34b10600398d94f0);
+            
+        
+
+        marker_209568783ed1d18abda8f3cc768c333f.bindPopup(popup_c17a9444e9259f1230c6db9a4662a1ef)
+        ;
+
+        
+    
+    
+            var marker_e76b0f53c0072a2268b5bd7fb441c5f8 = L.marker(
+                [8.9824, -79.5199],
+                {}
+            ).addTo(map_3d5297916f34f5068ea24cc277149da5);
+        
+    
+            var icon_5954387dd24f68a3b78dff3b16dc2ca2 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "ship", "iconColor": "white", "markerColor": "green", "prefix": "fa"}
+            );
+            marker_e76b0f53c0072a2268b5bd7fb441c5f8.setIcon(icon_5954387dd24f68a3b78dff3b16dc2ca2);
+        
+    
+        var popup_bdba43c42b715627bb2b764d734bc522 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_75fe2947a21b2aa23d7195dfc3db1c30 = $(`<div id="html_75fe2947a21b2aa23d7195dfc3db1c30" style="width: 100.0%; height: 100.0%;">                       <img src=https://snos.ro/media/cities/panama.JPG                       class="img_city" alt="image_city">                       <h3 class='title_city'>Panama (Panama) <img src=https://snos.ro/media/flags/PANAMA.GIF                       class="img_flag" alt="img_flag"></h3>                        <h5 class='last_visit'>last visit: May - 2021</h4>                       </div>`)[0];
+                popup_bdba43c42b715627bb2b764d734bc522.setContent(html_75fe2947a21b2aa23d7195dfc3db1c30);
+            
+        
+
+        marker_e76b0f53c0072a2268b5bd7fb441c5f8.bindPopup(popup_bdba43c42b715627bb2b764d734bc522)
+        ;
+
+        
+    
+    
+            var marker_370cc97f7306b81defe5c7ae55b4eef4 = L.marker(
+                [40.736, -74.172],
+                {}
+            ).addTo(map_3d5297916f34f5068ea24cc277149da5);
+        
+    
+            var icon_3595052d5dfb1c19a10783e2b0b6f81b = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "ship", "iconColor": "white", "markerColor": "green", "prefix": "fa"}
+            );
+            marker_370cc97f7306b81defe5c7ae55b4eef4.setIcon(icon_3595052d5dfb1c19a10783e2b0b6f81b);
+        
+    
+        var popup_85d47048c642cc96ef4d6591740d9a52 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_92aa3b6b9069d40e5259f72f1550a849 = $(`<div id="html_92aa3b6b9069d40e5259f72f1550a849" style="width: 100.0%; height: 100.0%;">                       <img src=https://snos.ro/media/cities/newyork.JPG                       class="img_city" alt="image_city">                       <h3 class='title_city'>New York (USA) <img src=https://snos.ro/media/flags/UNITEDSTATES.GIF                       class="img_flag" alt="img_flag"></h3>                        <h5 class='last_visit'>last visit: Feb - 2022</h4>                       </div>`)[0];
+                popup_85d47048c642cc96ef4d6591740d9a52.setContent(html_92aa3b6b9069d40e5259f72f1550a849);
+            
+        
+
+        marker_370cc97f7306b81defe5c7ae55b4eef4.bindPopup(popup_85d47048c642cc96ef4d6591740d9a52)
+        ;
+
+        
+    
+    
+            var marker_73caa25b3d6908ab0de9b58fccd2c08a = L.marker(
+                [36.85, -76.286],
+                {}
+            ).addTo(map_3d5297916f34f5068ea24cc277149da5);
+        
+    
+            var icon_f7c072dba5fd5a37a1d94fe42e16b9a5 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "ship", "iconColor": "white", "markerColor": "red", "prefix": "fa"}
+            );
+            marker_73caa25b3d6908ab0de9b58fccd2c08a.setIcon(icon_f7c072dba5fd5a37a1d94fe42e16b9a5);
+        
+    
+        var popup_68945da0bc9b2f87c962e4c1367c1d3b = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_03c888a72264a07e3257c3e4b99dc045 = $(`<div id="html_03c888a72264a07e3257c3e4b99dc045" style="width: 100.0%; height: 100.0%;">                       <img src=https://snos.ro/media/cities/norfolk.JPG                       class="img_city" alt="image_city">                       <h3 class='title_city'>Norfolk (USA) <img src=https://snos.ro/media/flags/UNITEDSTATES.GIF                       class="img_flag" alt="img_flag"></h3>                        <h5 class='last_visit'>last visit: Oct - 2021</h4>                       </div>`)[0];
+                popup_68945da0bc9b2f87c962e4c1367c1d3b.setContent(html_03c888a72264a07e3257c3e4b99dc045);
+            
+        
+
+        marker_73caa25b3d6908ab0de9b58fccd2c08a.bindPopup(popup_68945da0bc9b2f87c962e4c1367c1d3b)
+        ;
+
+        
+    
+    
+            var marker_a084da594734d81aad74fac85898497c = L.marker(
+                [39.299, -76.609],
+                {}
+            ).addTo(map_3d5297916f34f5068ea24cc277149da5);
+        
+    
+            var icon_0b3883a393b07ece29c22a31af1d3d8c = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "ship", "iconColor": "white", "markerColor": "red", "prefix": "fa"}
+            );
+            marker_a084da594734d81aad74fac85898497c.setIcon(icon_0b3883a393b07ece29c22a31af1d3d8c);
+        
+    
+        var popup_8fabdac8e133a0a7e377954aae9c820b = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_faa1ed1298955a6217ee82688b770ff6 = $(`<div id="html_faa1ed1298955a6217ee82688b770ff6" style="width: 100.0%; height: 100.0%;">                       <img src=https://snos.ro/media/cities/baltimore.jpg                       class="img_city" alt="image_city">                       <h3 class='title_city'>Baltimore (USA) <img src=https://snos.ro/media/flags/UNITEDSTATES.GIF                       class="img_flag" alt="img_flag"></h3>                        <h5 class='last_visit'>last visit: Feb - 2021</h4>                       </div>`)[0];
+                popup_8fabdac8e133a0a7e377954aae9c820b.setContent(html_faa1ed1298955a6217ee82688b770ff6);
+            
+        
+
+        marker_a084da594734d81aad74fac85898497c.bindPopup(popup_8fabdac8e133a0a7e377954aae9c820b)
+        ;
+
+        
+    
+    
+            var marker_c47bfccae67ed4e190f974d8a0d93dba = L.marker(
+                [17.051, 54.107],
+                {}
+            ).addTo(map_3d5297916f34f5068ea24cc277149da5);
+        
+    
+            var icon_4fe15a599dfa192a7ce6fc9bd1bec87f = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "ship", "iconColor": "white", "markerColor": "red", "prefix": "fa"}
+            );
+            marker_c47bfccae67ed4e190f974d8a0d93dba.setIcon(icon_4fe15a599dfa192a7ce6fc9bd1bec87f);
+        
+    
+        var popup_5d9321dc9ea8bf753ee0b9a1704b7066 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_6411dc44283112ef0987fd582609507d = $(`<div id="html_6411dc44283112ef0987fd582609507d" style="width: 100.0%; height: 100.0%;">                       <img src=https://snos.ro/media/cities/salalah.jpg                       class="img_city" alt="image_city">                       <h3 class='title_city'>Salalah (Oman) <img src=https://snos.ro/media/flags/OMAN.GIF                       class="img_flag" alt="img_flag"></h3>                        <h5 class='last_visit'>last visit: Mar - 2021</h4>                       </div>`)[0];
+                popup_5d9321dc9ea8bf753ee0b9a1704b7066.setContent(html_6411dc44283112ef0987fd582609507d);
+            
+        
+
+        marker_c47bfccae67ed4e190f974d8a0d93dba.bindPopup(popup_5d9321dc9ea8bf753ee0b9a1704b7066)
+        ;
+
+        
+    
+    
+            var marker_f93c6c34fc2289938283b2372c2b30e5 = L.marker(
+                [6.927, 79.861],
+                {}
+            ).addTo(map_3d5297916f34f5068ea24cc277149da5);
+        
+    
+            var icon_239aa688f1cfbceb439eab60ea3d4c09 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "ship", "iconColor": "white", "markerColor": "red", "prefix": "fa"}
+            );
+            marker_f93c6c34fc2289938283b2372c2b30e5.setIcon(icon_239aa688f1cfbceb439eab60ea3d4c09);
+        
+    
+        var popup_dadb5eaa3ec1ec3fd8cc28adada4f525 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_a42df258b11c1437bb7ee50fcf844d29 = $(`<div id="html_a42df258b11c1437bb7ee50fcf844d29" style="width: 100.0%; height: 100.0%;">                       <img src=https://snos.ro/media/cities/colombo.JPG                       class="img_city" alt="image_city">                       <h3 class='title_city'>Colombo (Sri Lanka) <img src=https://snos.ro/media/flags/srilanka.JPG                       class="img_flag" alt="img_flag"></h3>                        <h5 class='last_visit'>last visit: Mar - 2021</h4>                       </div>`)[0];
+                popup_dadb5eaa3ec1ec3fd8cc28adada4f525.setContent(html_a42df258b11c1437bb7ee50fcf844d29);
+            
+        
+
+        marker_f93c6c34fc2289938283b2372c2b30e5.bindPopup(popup_dadb5eaa3ec1ec3fd8cc28adada4f525)
+        ;
+
+        
+    
+    
+            var marker_4dabfa823e4cea80542aed10cf5937e5 = L.marker(
+                [32.076, -81.088],
+                {}
+            ).addTo(map_3d5297916f34f5068ea24cc277149da5);
+        
+    
+            var icon_bb7e50d64778fca0cc6329f73f4aaf05 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "ship", "iconColor": "white", "markerColor": "red", "prefix": "fa"}
+            );
+            marker_4dabfa823e4cea80542aed10cf5937e5.setIcon(icon_bb7e50d64778fca0cc6329f73f4aaf05);
+        
+    
+        var popup_4f0fe91a95e23707036d89f0fdde0067 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_7dffeb29a7ccb37d33f293ca9c5f6ae0 = $(`<div id="html_7dffeb29a7ccb37d33f293ca9c5f6ae0" style="width: 100.0%; height: 100.0%;">                       <img src=https://snos.ro/media/cities/savannah.jpg                       class="img_city" alt="image_city">                       <h3 class='title_city'>Savannah (USA) <img src=https://snos.ro/media/flags/UNITEDSTATES.GIF                       class="img_flag" alt="img_flag"></h3>                        <h5 class='last_visit'>last visit: Oct - 2021</h4>                       </div>`)[0];
+                popup_4f0fe91a95e23707036d89f0fdde0067.setContent(html_7dffeb29a7ccb37d33f293ca9c5f6ae0);
+            
+        
+
+        marker_4dabfa823e4cea80542aed10cf5937e5.bindPopup(popup_4f0fe91a95e23707036d89f0fdde0067)
+        ;
+
+        
+    
+    
+            var marker_41634b3499a36a13808672b591b31843 = L.marker(
+                [34.0549, -118.2426],
+                {}
+            ).addTo(map_3d5297916f34f5068ea24cc277149da5);
+        
+    
+            var icon_5f88d0bc031d6d4f7058daff5995602d = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "ship", "iconColor": "white", "markerColor": "red", "prefix": "fa"}
+            );
+            marker_41634b3499a36a13808672b591b31843.setIcon(icon_5f88d0bc031d6d4f7058daff5995602d);
+        
+    
+        var popup_a680a53111a0f3457d0c3276ff85ed7f = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_36eb9f928ed03a90b4b5f8b455381f48 = $(`<div id="html_36eb9f928ed03a90b4b5f8b455381f48" style="width: 100.0%; height: 100.0%;">                       <img src=https://snos.ro/media/cities/losangeles.JPG                       class="img_city" alt="image_city">                       <h3 class='title_city'>Los Angeles (USA) <img src=https://snos.ro/media/flags/UNITEDSTATES.GIF                       class="img_flag" alt="img_flag"></h3>                        <h5 class='last_visit'>last visit: Dec - 2022</h4>                       </div>`)[0];
+                popup_a680a53111a0f3457d0c3276ff85ed7f.setContent(html_36eb9f928ed03a90b4b5f8b455381f48);
+            
+        
+
+        marker_41634b3499a36a13808672b591b31843.bindPopup(popup_a680a53111a0f3457d0c3276ff85ed7f)
+        ;
+
+        
+    
+    
+            var marker_b20be541d62a191ce0700fc0243f22a2 = L.marker(
+                [35.4437, 139.638],
+                {}
+            ).addTo(map_3d5297916f34f5068ea24cc277149da5);
+        
+    
+            var icon_bc0019a7b7036392e2a7be054a207465 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "ship", "iconColor": "white", "markerColor": "red", "prefix": "fa"}
+            );
+            marker_b20be541d62a191ce0700fc0243f22a2.setIcon(icon_bc0019a7b7036392e2a7be054a207465);
+        
+    
+        var popup_93688206893ef1e9fdb85f940bbdc745 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_b7cb6a1a47702538ba2b914700d816b0 = $(`<div id="html_b7cb6a1a47702538ba2b914700d816b0" style="width: 100.0%; height: 100.0%;">                       <img src=https://snos.ro/media/cities/yokohama.JPG                       class="img_city" alt="image_city">                       <h3 class='title_city'>Yokohama (Japan) <img src=https://snos.ro/media/flags/JAPAN.GIF                       class="img_flag" alt="img_flag"></h3>                        <h5 class='last_visit'>last visit: Nov - 2022</h4>                       </div>`)[0];
+                popup_93688206893ef1e9fdb85f940bbdc745.setContent(html_b7cb6a1a47702538ba2b914700d816b0);
+            
+        
+
+        marker_b20be541d62a191ce0700fc0243f22a2.bindPopup(popup_93688206893ef1e9fdb85f940bbdc745)
+        ;
+
+        
+    
+    
+            var marker_ca81a0bb3070ea5650e983a94b0174d3 = L.marker(
+                [10.4114, 107.1362],
+                {}
+            ).addTo(map_3d5297916f34f5068ea24cc277149da5);
+        
+    
+            var icon_f87c9664dc87983433171916476f49ba = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "ship", "iconColor": "white", "markerColor": "green", "prefix": "fa"}
+            );
+            marker_ca81a0bb3070ea5650e983a94b0174d3.setIcon(icon_f87c9664dc87983433171916476f49ba);
+        
+    
+        var popup_eacc5f523b19eef3cd7e3753dc5afb1f = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_b8ce703465c72635fe2e4b717aa06f8a = $(`<div id="html_b8ce703465c72635fe2e4b717aa06f8a" style="width: 100.0%; height: 100.0%;">                       <img src=https://snos.ro/media/cities/vungtau.JPG                       class="img_city" alt="image_city">                       <h3 class='title_city'>Vung Tau (Vietnam) <img src=https://snos.ro/media/flags/VIETNAM.GIF                       class="img_flag" alt="img_flag"></h3>                        <h5 class='last_visit'>last visit: Nov - 2022</h4>                       </div>`)[0];
+                popup_eacc5f523b19eef3cd7e3753dc5afb1f.setContent(html_b8ce703465c72635fe2e4b717aa06f8a);
+            
+        
+
+        marker_ca81a0bb3070ea5650e983a94b0174d3.bindPopup(popup_eacc5f523b19eef3cd7e3753dc5afb1f)
+        ;
+
+        
+    
+    
+            var marker_c2febf8dcf2bbfd9b80fa8fc596c98a6 = L.marker(
+                [51.2213, 4.4051],
+                {}
+            ).addTo(map_3d5297916f34f5068ea24cc277149da5);
+        
+    
+            var icon_38d12f0ea3f123d894820a47474674a7 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "ship", "iconColor": "white", "markerColor": "red", "prefix": "fa"}
+            );
+            marker_c2febf8dcf2bbfd9b80fa8fc596c98a6.setIcon(icon_38d12f0ea3f123d894820a47474674a7);
+        
+    
+        var popup_d24af72b1a0a9ce5b3dda42e00d7d874 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_aba270ef0d3242978ea2ce7fa71dd127 = $(`<div id="html_aba270ef0d3242978ea2ce7fa71dd127" style="width: 100.0%; height: 100.0%;">                       <img src=https://snos.ro/media/cities/antwerp.jpg                       class="img_city" alt="image_city">                       <h3 class='title_city'>Antwerp (Belgium) <img src=https://snos.ro/media/flags/BELGIUM.GIF                       class="img_flag" alt="img_flag"></h3>                        <h5 class='last_visit'>last visit: Aug - 2023</h4>                       </div>`)[0];
+                popup_d24af72b1a0a9ce5b3dda42e00d7d874.setContent(html_aba270ef0d3242978ea2ce7fa71dd127);
+            
+        
+
+        marker_c2febf8dcf2bbfd9b80fa8fc596c98a6.bindPopup(popup_d24af72b1a0a9ce5b3dda42e00d7d874)
+        ;
+
+        
+    
+    
+            var marker_aae4eea8f7f14f0aad9f60799def9203 = L.marker(
+                [51.5101, 0.4596],
+                {}
+            ).addTo(map_3d5297916f34f5068ea24cc277149da5);
+        
+    
+            var icon_637a4f6800ceb01b72329a187700ab68 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "ship", "iconColor": "white", "markerColor": "green", "prefix": "fa"}
+            );
+            marker_aae4eea8f7f14f0aad9f60799def9203.setIcon(icon_637a4f6800ceb01b72329a187700ab68);
+        
+    
+        var popup_4dc35db306b1237062d9d756b04bbbe0 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_9635df3e178ade1c01b2371feebd5d19 = $(`<div id="html_9635df3e178ade1c01b2371feebd5d19" style="width: 100.0%; height: 100.0%;">                       <img src=https://snos.ro/media/cities/londongateway.JPG                       class="img_city" alt="image_city">                       <h3 class='title_city'>London Gateway (England) <img src=https://snos.ro/media/flags/england.jpg                       class="img_flag" alt="img_flag"></h3>                        <h5 class='last_visit'>last visit: Aug - 2023</h4>                       </div>`)[0];
+                popup_4dc35db306b1237062d9d756b04bbbe0.setContent(html_9635df3e178ade1c01b2371feebd5d19);
+            
+        
+
+        marker_aae4eea8f7f14f0aad9f60799def9203.bindPopup(popup_4dc35db306b1237062d9d756b04bbbe0)
+        ;
+
+        
+    
+    
+            var marker_74dd70a1cdcec3f56de522af41296d76 = L.marker(
+                [49.4944, 0.1079],
+                {}
+            ).addTo(map_3d5297916f34f5068ea24cc277149da5);
+        
+    
+            var icon_ad5283ab09f3a7c730fdeba263cf4cba = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "ship", "iconColor": "white", "markerColor": "red", "prefix": "fa"}
+            );
+            marker_74dd70a1cdcec3f56de522af41296d76.setIcon(icon_ad5283ab09f3a7c730fdeba263cf4cba);
+        
+    
+        var popup_d20e850d06e19398b9a494b6ef95cca2 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_6677d7b16621bb2b1469f0db4a19578f = $(`<div id="html_6677d7b16621bb2b1469f0db4a19578f" style="width: 100.0%; height: 100.0%;">                       <img src=https://snos.ro/media/cities/lehavre.jpg                       class="img_city" alt="image_city">                       <h3 class='title_city'>Le Havre (France) <img src=https://snos.ro/media/flags/FRANCE.GIF                       class="img_flag" alt="img_flag"></h3>                        <h5 class='last_visit'>last visit: Aug - 2023</h4>                       </div>`)[0];
+                popup_d20e850d06e19398b9a494b6ef95cca2.setContent(html_6677d7b16621bb2b1469f0db4a19578f);
+            
+        
+
+        marker_74dd70a1cdcec3f56de522af41296d76.bindPopup(popup_d20e850d06e19398b9a494b6ef95cca2)
+        ;
+
+        
+    
+    
+            var marker_e64f470f3b927bebc565eea893a9314d = L.marker(
+                [24.4539, 54.3773],
+                {}
+            ).addTo(map_3d5297916f34f5068ea24cc277149da5);
+        
+    
+            var icon_3fedff9b980620a6ecbbb4578fcc841e = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "ship", "iconColor": "white", "markerColor": "red", "prefix": "fa"}
+            );
+            marker_e64f470f3b927bebc565eea893a9314d.setIcon(icon_3fedff9b980620a6ecbbb4578fcc841e);
+        
+    
+        var popup_7e39c14fd2d27b75faedf2778b488cd5 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_d9af99cadc232ba45873e6a50f49892a = $(`<div id="html_d9af99cadc232ba45873e6a50f49892a" style="width: 100.0%; height: 100.0%;">                       <img src=https://snos.ro/media/cities/abudhabi.jpg                       class="img_city" alt="image_city">                       <h3 class='title_city'>Abu Dhabi (UAE) <img src=https://snos.ro/media/flags/UAE.jpg                       class="img_flag" alt="img_flag"></h3>                        <h5 class='last_visit'>last visit: Sep - 2023</h4>                       </div>`)[0];
+                popup_7e39c14fd2d27b75faedf2778b488cd5.setContent(html_d9af99cadc232ba45873e6a50f49892a);
+            
+        
+
+        marker_e64f470f3b927bebc565eea893a9314d.bindPopup(popup_7e39c14fd2d27b75faedf2778b488cd5)
+        ;
+
+        
+    
+    
+            var marker_b688f260ec539e3afd157f4f22cb63bd = L.marker(
+                [51.9617, 1.3513],
+                {}
+            ).addTo(map_3d5297916f34f5068ea24cc277149da5);
+        
+    
+            var icon_a9d183620210ecf3e376893f1db7bf10 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "ship", "iconColor": "white", "markerColor": "red", "prefix": "fa"}
+            );
+            marker_b688f260ec539e3afd157f4f22cb63bd.setIcon(icon_a9d183620210ecf3e376893f1db7bf10);
+        
+    
+        var popup_11fa3ca616dd9dcde629e23269dc954f = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_9b2879888b3d22e3b34e8c3a3e085b01 = $(`<div id="html_9b2879888b3d22e3b34e8c3a3e085b01" style="width: 100.0%; height: 100.0%;">                       <img src=https://snos.ro/media/cities/felixstowe.jpg                       class="img_city" alt="image_city">                       <h3 class='title_city'>Felixstowe (England) <img src=https://snos.ro/media/flags/england.jpg                       class="img_flag" alt="img_flag"></h3>                        <h5 class='last_visit'>last visit: Nov - 2023</h4>                       </div>`)[0];
+                popup_11fa3ca616dd9dcde629e23269dc954f.setContent(html_9b2879888b3d22e3b34e8c3a3e085b01);
+            
+        
+
+        marker_b688f260ec539e3afd157f4f22cb63bd.bindPopup(popup_11fa3ca616dd9dcde629e23269dc954f)
+        ;
+
+        
+    
+    
+            var marker_88911df7f07e8d7d7e1fa1b9db1910de = L.marker(
+                [31.265, 32.302],
+                {}
+            ).addTo(map_3d5297916f34f5068ea24cc277149da5);
+        
+    
+            var icon_5023325dcc541ed7baadd8b0e871416f = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "ship", "iconColor": "white", "markerColor": "red", "prefix": "fa"}
+            );
+            marker_88911df7f07e8d7d7e1fa1b9db1910de.setIcon(icon_5023325dcc541ed7baadd8b0e871416f);
+        
+    
+        var popup_4fd87c59f1a33a4c64a726f1c7b684ea = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_72c246a9d65891ac74fcfe77e5fa7b32 = $(`<div id="html_72c246a9d65891ac74fcfe77e5fa7b32" style="width: 100.0%; height: 100.0%;">                       <img src=https://snos.ro/media/cities/suez.JPG                       class="img_city" alt="image_city">                       <h3 class='title_city'>Suez (Egypt) <img src=https://snos.ro/media/flags/EGYPT.GIF                       class="img_flag" alt="img_flag"></h3>                        <h5 class='last_visit'>last visit: Sep - 2023</h4>                       </div>`)[0];
+                popup_4fd87c59f1a33a4c64a726f1c7b684ea.setContent(html_72c246a9d65891ac74fcfe77e5fa7b32);
+            
+        
+
+        marker_88911df7f07e8d7d7e1fa1b9db1910de.bindPopup(popup_4fd87c59f1a33a4c64a726f1c7b684ea)
+        ;
+
+        
+    
+    
+            var marker_6bae47a2a262266a828bf0e3cb19c857 = L.marker(
+                [55.7284, 9.1124],
+                {}
+            ).addTo(map_3d5297916f34f5068ea24cc277149da5);
+        
+    
+            var icon_cd643b3ef32bd99b268568f7d261426d = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "plane", "iconColor": "white", "markerColor": "red", "prefix": "fa"}
+            );
+            marker_6bae47a2a262266a828bf0e3cb19c857.setIcon(icon_cd643b3ef32bd99b268568f7d261426d);
+        
+    
+        var popup_64fa68677b79e507dd3a84a433f5f5c7 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_08070461bac8567d1bb5d2fe1d5786d7 = $(`<div id="html_08070461bac8567d1bb5d2fe1d5786d7" style="width: 100.0%; height: 100.0%;">                       <img src=https://snos.ro/media/cities/billund.jpg                       class="img_city" alt="image_city">                       <h3 class='title_city'>Billund (Denmark) <img src=https://snos.ro/media/flags/DENMARK.GIF                       class="img_flag" alt="img_flag"></h3>                        <h5 class='last_visit'>last visit: Jul - 2021</h4>                       </div>`)[0];
+                popup_64fa68677b79e507dd3a84a433f5f5c7.setContent(html_08070461bac8567d1bb5d2fe1d5786d7);
+            
+        
+
+        marker_6bae47a2a262266a828bf0e3cb19c857.bindPopup(popup_64fa68677b79e507dd3a84a433f5f5c7)
+        ;
+
+        
+    
+    
+            var marker_63651517c2d69709c894f82baa1e4a35 = L.marker(
+                [25.2854, 51.531],
+                {}
+            ).addTo(map_3d5297916f34f5068ea24cc277149da5);
+        
+    
+            var icon_484ea757644f19b5379338653380f912 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "plane", "iconColor": "white", "markerColor": "red", "prefix": "fa"}
+            );
+            marker_63651517c2d69709c894f82baa1e4a35.setIcon(icon_484ea757644f19b5379338653380f912);
+        
+    
+        var popup_a669d2118910c85fbfc53c70dedb22a3 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_52ba892af5869c93381a3a8e3ef58156 = $(`<div id="html_52ba892af5869c93381a3a8e3ef58156" style="width: 100.0%; height: 100.0%;">                       <img src=https://snos.ro/media/cities/doha.JPG                       class="img_city" alt="image_city">                       <h3 class='title_city'>Doha (Qatar) <img src=https://snos.ro/media/flags/QATAR.GIF                       class="img_flag" alt="img_flag"></h3>                        <h5 class='last_visit'>last visit: Feb - 2015</h4>                       </div>`)[0];
+                popup_a669d2118910c85fbfc53c70dedb22a3.setContent(html_52ba892af5869c93381a3a8e3ef58156);
+            
+        
+
+        marker_63651517c2d69709c894f82baa1e4a35.bindPopup(popup_a669d2118910c85fbfc53c70dedb22a3)
+        ;
+
+        
+    
+    
+            var marker_2fe6a0f6c615cae40c24e516baedaa35 = L.marker(
+                [48.8566, 2.3522],
+                {}
+            ).addTo(map_3d5297916f34f5068ea24cc277149da5);
+        
+    
+            var icon_586f7cabf1a2b16019fba0593b8579e6 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "plane", "iconColor": "white", "markerColor": "red", "prefix": "fa"}
+            );
+            marker_2fe6a0f6c615cae40c24e516baedaa35.setIcon(icon_586f7cabf1a2b16019fba0593b8579e6);
+        
+    
+        var popup_ed9bc3810d4df005ffa693fd2f976916 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_a26a4d1c38b32066c077c1a6360c943d = $(`<div id="html_a26a4d1c38b32066c077c1a6360c943d" style="width: 100.0%; height: 100.0%;">                       <img src=https://snos.ro/media/cities/paris.JPG                       class="img_city" alt="image_city">                       <h3 class='title_city'>Paris (France) <img src=https://snos.ro/media/flags/FRANCE.GIF                       class="img_flag" alt="img_flag"></h3>                        <h5 class='last_visit'>last visit: Dec - 2022</h4>                       </div>`)[0];
+                popup_ed9bc3810d4df005ffa693fd2f976916.setContent(html_a26a4d1c38b32066c077c1a6360c943d);
+            
+        
+
+        marker_2fe6a0f6c615cae40c24e516baedaa35.bindPopup(popup_ed9bc3810d4df005ffa693fd2f976916)
+        ;
+
+        
+    
+    
+            var marker_007256e9d781d3572269a6629557cb2f = L.marker(
+                [50.1109, 8.6821],
+                {}
+            ).addTo(map_3d5297916f34f5068ea24cc277149da5);
+        
+    
+            var icon_b7e931841ea17abe05a488abdd3d78a3 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "plane", "iconColor": "white", "markerColor": "red", "prefix": "fa"}
+            );
+            marker_007256e9d781d3572269a6629557cb2f.setIcon(icon_b7e931841ea17abe05a488abdd3d78a3);
+        
+    
+        var popup_c003682f6aa9af27c6d47787aa59cb8b = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_cbaf26e7e74bcdf7a8e57243e43f0576 = $(`<div id="html_cbaf26e7e74bcdf7a8e57243e43f0576" style="width: 100.0%; height: 100.0%;">                       <img src=https://snos.ro/media/cities/frankfurt.jpg                       class="img_city" alt="image_city">                       <h3 class='title_city'>Frankfurt (Germany) <img src=https://snos.ro/media/flags/GERMANY.GIF                       class="img_flag" alt="img_flag"></h3>                        <h5 class='last_visit'>last visit: Jul - 2021</h4>                       </div>`)[0];
+                popup_c003682f6aa9af27c6d47787aa59cb8b.setContent(html_cbaf26e7e74bcdf7a8e57243e43f0576);
+            
+        
+
+        marker_007256e9d781d3572269a6629557cb2f.bindPopup(popup_c003682f6aa9af27c6d47787aa59cb8b)
+        ;
+
+        
+    
+    
+            var marker_c74e9c75094bd196153a20bac1e3ca44 = L.marker(
+                [48.2082, 16.3738],
+                {}
+            ).addTo(map_3d5297916f34f5068ea24cc277149da5);
+        
+    
+            var icon_a360def4668c2c885227c37217fbd4e9 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "plane", "iconColor": "white", "markerColor": "red", "prefix": "fa"}
+            );
+            marker_c74e9c75094bd196153a20bac1e3ca44.setIcon(icon_a360def4668c2c885227c37217fbd4e9);
+        
+    
+        var popup_2590f699774bf502513bdfdb6d5acb6c = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_bfd35a45fd582dd6a3422f457c38f382 = $(`<div id="html_bfd35a45fd582dd6a3422f457c38f382" style="width: 100.0%; height: 100.0%;">                       <img src=https://snos.ro/media/cities/vienna.JPG                       class="img_city" alt="image_city">                       <h3 class='title_city'>Vienna (Austria) <img src=https://snos.ro/media/flags/AUSTRIA.GIF                       class="img_flag" alt="img_flag"></h3>                        <h5 class='last_visit'>last visit: Aug - 2023</h4>                       </div>`)[0];
+                popup_2590f699774bf502513bdfdb6d5acb6c.setContent(html_bfd35a45fd582dd6a3422f457c38f382);
+            
+        
+
+        marker_c74e9c75094bd196153a20bac1e3ca44.bindPopup(popup_2590f699774bf502513bdfdb6d5acb6c)
+        ;
+
+        
+    
+    
+            var marker_3404f7f29787384e1dce2e2606220118 = L.marker(
+                [41.0082, 28.9784],
+                {}
+            ).addTo(map_3d5297916f34f5068ea24cc277149da5);
+        
+    
+            var icon_8ba76a3702499bb22fdf3e41109f0bd1 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "car", "iconColor": "white", "markerColor": "red", "prefix": "fa"}
+            );
+            marker_3404f7f29787384e1dce2e2606220118.setIcon(icon_8ba76a3702499bb22fdf3e41109f0bd1);
+        
+    
+        var popup_a6138560b9643fc04ebac6e35c695a6f = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_ddfc6a0ae91d15115a108d0f504a7761 = $(`<div id="html_ddfc6a0ae91d15115a108d0f504a7761" style="width: 100.0%; height: 100.0%;">                       <img src=https://snos.ro/media/cities/istanbul.jpg                       class="img_city" alt="image_city">                       <h3 class='title_city'>Istanbul (Turkey) <img src=https://snos.ro/media/flags/TURKEY.GIF                       class="img_flag" alt="img_flag"></h3>                        <h5 class='last_visit'>last visit: May - 2021</h4>                       </div>`)[0];
+                popup_a6138560b9643fc04ebac6e35c695a6f.setContent(html_ddfc6a0ae91d15115a108d0f504a7761);
+            
+        
+
+        marker_3404f7f29787384e1dce2e2606220118.bindPopup(popup_a6138560b9643fc04ebac6e35c695a6f)
+        ;
+
+        
+    
+    
+            var marker_506e41c6ed02f9511a2f2f4ed6cc3af3 = L.marker(
+                [52.2297, 21.0122],
+                {}
+            ).addTo(map_3d5297916f34f5068ea24cc277149da5);
+        
+    
+            var icon_103324a714c6cf18c6d7ac0f6122abfa = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "plane", "iconColor": "white", "markerColor": "red", "prefix": "fa"}
+            );
+            marker_506e41c6ed02f9511a2f2f4ed6cc3af3.setIcon(icon_103324a714c6cf18c6d7ac0f6122abfa);
+        
+    
+        var popup_d7fd13a75c05a11a7d0b16d900d3ca28 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_7c61c0295b9709555e010ac338cc87da = $(`<div id="html_7c61c0295b9709555e010ac338cc87da" style="width: 100.0%; height: 100.0%;">                       <img src=https://snos.ro/media/cities/warsaw.jpeg                       class="img_city" alt="image_city">                       <h3 class='title_city'>Warsaw (Poland) <img src=https://snos.ro/media/flags/POLAND.GIF                       class="img_flag" alt="img_flag"></h3>                        <h5 class='last_visit'>last visit: Feb - 2022</h4>                       </div>`)[0];
+                popup_d7fd13a75c05a11a7d0b16d900d3ca28.setContent(html_7c61c0295b9709555e010ac338cc87da);
+            
+        
+
+        marker_506e41c6ed02f9511a2f2f4ed6cc3af3.bindPopup(popup_d7fd13a75c05a11a7d0b16d900d3ca28)
+        ;
+
+        
+    
+    
+            var marker_c041fc04a11b0d60e92b95716f85936d = L.marker(
+                [38.2466, 21.7346],
+                {}
+            ).addTo(map_3d5297916f34f5068ea24cc277149da5);
+        
+    
+            var icon_3ade26bb9b678e608bcbda379350a410 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "ship", "iconColor": "white", "markerColor": "red", "prefix": "fa"}
+            );
+            marker_c041fc04a11b0d60e92b95716f85936d.setIcon(icon_3ade26bb9b678e608bcbda379350a410);
+        
+    
+        var popup_ebbd7219402b47b3e564ff873e774d8c = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_3064a83fa43e7618e6e9aebd05544c44 = $(`<div id="html_3064a83fa43e7618e6e9aebd05544c44" style="width: 100.0%; height: 100.0%;">                       <img src=https://snos.ro/media/cities/patras.jpg                       class="img_city" alt="image_city">                       <h3 class='title_city'>Patras (Greece) <img src=https://snos.ro/media/flags/GREECE.GIF                       class="img_flag" alt="img_flag"></h3>                        <h5 class='last_visit'>last visit: Jul - 2010</h4>                       </div>`)[0];
+                popup_ebbd7219402b47b3e564ff873e774d8c.setContent(html_3064a83fa43e7618e6e9aebd05544c44);
+            
+        
+
+        marker_c041fc04a11b0d60e92b95716f85936d.bindPopup(popup_ebbd7219402b47b3e564ff873e774d8c)
+        ;
+
+        
+    
+    
+            var marker_48c8f44ac1f9b43ac361513af8a98c0b = L.marker(
+                [39.5061, 20.2655],
+                {}
+            ).addTo(map_3d5297916f34f5068ea24cc277149da5);
+        
+    
+            var icon_1903cd14aa562802af147b99e9e3c95e = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "ship", "iconColor": "white", "markerColor": "red", "prefix": "fa"}
+            );
+            marker_48c8f44ac1f9b43ac361513af8a98c0b.setIcon(icon_1903cd14aa562802af147b99e9e3c95e);
+        
+    
+        var popup_653f4ce4a2332b3ed75a6c99cecfb641 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_b24da398ccdfffe3bbdc4d3d2e93d997 = $(`<div id="html_b24da398ccdfffe3bbdc4d3d2e93d997" style="width: 100.0%; height: 100.0%;">                       <img src=https://snos.ro/media/cities/igoumenitsa.JPG                       class="img_city" alt="image_city">                       <h3 class='title_city'>Igoumenitsa (Greece) <img src=https://snos.ro/media/flags/GREECE.GIF                       class="img_flag" alt="img_flag"></h3>                        <h5 class='last_visit'>last visit: Jul - 2010</h4>                       </div>`)[0];
+                popup_653f4ce4a2332b3ed75a6c99cecfb641.setContent(html_b24da398ccdfffe3bbdc4d3d2e93d997);
+            
+        
+
+        marker_48c8f44ac1f9b43ac361513af8a98c0b.bindPopup(popup_653f4ce4a2332b3ed75a6c99cecfb641)
+        ;
+
+        
+    
+    
+            var marker_7dc6b484866d3e66063fa51924b2cf72 = L.marker(
+                [44.4949, 11.3426],
+                {}
+            ).addTo(map_3d5297916f34f5068ea24cc277149da5);
+        
+    
+            var icon_d548cd5cef1a29fab05d724642d83a34 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "car", "iconColor": "white", "markerColor": "red", "prefix": "fa"}
+            );
+            marker_7dc6b484866d3e66063fa51924b2cf72.setIcon(icon_d548cd5cef1a29fab05d724642d83a34);
+        
+    
+        var popup_af9ff8a5adcd2f7a83acf149f28a5226 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_9c4848a736e2ca9db514a0467e27c30e = $(`<div id="html_9c4848a736e2ca9db514a0467e27c30e" style="width: 100.0%; height: 100.0%;">                       <img src=https://snos.ro/media/cities/bologna.jpeg                       class="img_city" alt="image_city">                       <h3 class='title_city'>Bologna (Italy) <img src=https://snos.ro/media/flags/ITALY.GIF                       class="img_flag" alt="img_flag"></h3>                        <h5 class='last_visit'>last visit: Jul - 2010</h4>                       </div>`)[0];
+                popup_af9ff8a5adcd2f7a83acf149f28a5226.setContent(html_9c4848a736e2ca9db514a0467e27c30e);
+            
+        
+
+        marker_7dc6b484866d3e66063fa51924b2cf72.bindPopup(popup_af9ff8a5adcd2f7a83acf149f28a5226)
+        ;
+
+        
+    
+    
+            var marker_4b40f3de7c8640ec8a82c90582e31a99 = L.marker(
+                [42.6977, 23.3219],
+                {}
+            ).addTo(map_3d5297916f34f5068ea24cc277149da5);
+        
+    
+            var icon_1f206f2c027fb703908ce8ea90d57503 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "car", "iconColor": "white", "markerColor": "red", "prefix": "fa"}
+            );
+            marker_4b40f3de7c8640ec8a82c90582e31a99.setIcon(icon_1f206f2c027fb703908ce8ea90d57503);
+        
+    
+        var popup_eb37f701566306813c2a49cb147d91da = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_647445936a6a29f611700d6c3f0026bc = $(`<div id="html_647445936a6a29f611700d6c3f0026bc" style="width: 100.0%; height: 100.0%;">                       <img src=https://snos.ro/media/cities/sofia.jpg                       class="img_city" alt="image_city">                       <h3 class='title_city'>Sofia (Bulgaria) <img src=https://snos.ro/media/flags/BULGARIA.GIF                       class="img_flag" alt="img_flag"></h3>                        <h5 class='last_visit'>last visit: Jul - 2020</h4>                       </div>`)[0];
+                popup_eb37f701566306813c2a49cb147d91da.setContent(html_647445936a6a29f611700d6c3f0026bc);
+            
+        
+
+        marker_4b40f3de7c8640ec8a82c90582e31a99.bindPopup(popup_eb37f701566306813c2a49cb147d91da)
+        ;
+
+        
+    
+    
+            var marker_f3589379582a8e1d4053343fbcfa004e = L.marker(
+                [41.9028, 12.4964],
+                {}
+            ).addTo(map_3d5297916f34f5068ea24cc277149da5);
+        
+    
+            var icon_ea8e8438789b9aa386034a618112501b = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "car", "iconColor": "white", "markerColor": "green", "prefix": "fa"}
+            );
+            marker_f3589379582a8e1d4053343fbcfa004e.setIcon(icon_ea8e8438789b9aa386034a618112501b);
+        
+    
+        var popup_20850f0ce9177a5255e9dce5e774f0ee = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_04e1d8012229ce227a37bf665c6d2771 = $(`<div id="html_04e1d8012229ce227a37bf665c6d2771" style="width: 100.0%; height: 100.0%;">                       <img src=https://snos.ro/media/cities/rome.JPG                       class="img_city" alt="image_city">                       <h3 class='title_city'>Rome (Italy) <img src=https://snos.ro/media/flags/ITALY.GIF                       class="img_flag" alt="img_flag"></h3>                        <h5 class='last_visit'>last visit: Aug - 2018</h4>                       </div>`)[0];
+                popup_20850f0ce9177a5255e9dce5e774f0ee.setContent(html_04e1d8012229ce227a37bf665c6d2771);
+            
+        
+
+        marker_f3589379582a8e1d4053343fbcfa004e.bindPopup(popup_20850f0ce9177a5255e9dce5e774f0ee)
+        ;
+
+        
+    
+    
+            var marker_a2cec213b384607b8d4ab69b9683ea83 = L.marker(
+                [55.0674, 10.6073],
+                {}
+            ).addTo(map_3d5297916f34f5068ea24cc277149da5);
+        
+    
+            var icon_84dbbe6368a7631e6e3c281ca24eb9a6 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "university", "iconColor": "white", "markerColor": "green", "prefix": "fa"}
+            );
+            marker_a2cec213b384607b8d4ab69b9683ea83.setIcon(icon_84dbbe6368a7631e6e3c281ca24eb9a6);
+        
+    
+        var popup_da0824bf570781f8240c7c8d0fa506f9 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_61126c3d0222de28665ffebb979b793e = $(`<div id="html_61126c3d0222de28665ffebb979b793e" style="width: 100.0%; height: 100.0%;">                       <img src=https://snos.ro/media/cities/svenborg.JPG                       class="img_city" alt="image_city">                       <h3 class='title_city'>Svenborg (Denmark) <img src=https://snos.ro/media/flags/DENMARK.GIF                       class="img_flag" alt="img_flag"></h3>                        <h5 class='last_visit'>last visit: Jul - 2021</h4>                       </div>`)[0];
+                popup_da0824bf570781f8240c7c8d0fa506f9.setContent(html_61126c3d0222de28665ffebb979b793e);
+            
+        
+
+        marker_a2cec213b384607b8d4ab69b9683ea83.bindPopup(popup_da0824bf570781f8240c7c8d0fa506f9)
+        ;
+
+        
+    
+    
+            var marker_ec400bd43b59a57f0c91b45e9c545282 = L.marker(
+                [51.5, -0.125],
+                {}
+            ).addTo(map_3d5297916f34f5068ea24cc277149da5);
+        
+    
+            var icon_bc454925af024296c7c91ce9cb6506d1 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "car", "iconColor": "white", "markerColor": "green", "prefix": "fa"}
+            );
+            marker_ec400bd43b59a57f0c91b45e9c545282.setIcon(icon_bc454925af024296c7c91ce9cb6506d1);
+        
+    
+        var popup_9e3a8554b17fb9ab22d4f9cfc5516e20 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_ebdf0088f5c237b16daad56fc911d6a3 = $(`<div id="html_ebdf0088f5c237b16daad56fc911d6a3" style="width: 100.0%; height: 100.0%;">                       <img src=https://snos.ro/media/cities/london.JPG                       class="img_city" alt="image_city">                       <h3 class='title_city'>London (England) <img src=https://snos.ro/media/flags/england.jpg                       class="img_flag" alt="img_flag"></h3>                        <h5 class='last_visit'>last visit: Aug - 2023</h4>                       </div>`)[0];
+                popup_9e3a8554b17fb9ab22d4f9cfc5516e20.setContent(html_ebdf0088f5c237b16daad56fc911d6a3);
+            
+        
+
+        marker_ec400bd43b59a57f0c91b45e9c545282.bindPopup(popup_9e3a8554b17fb9ab22d4f9cfc5516e20)
+        ;
+
+        
+    
+    
+            var marker_28cd8581ce5bcc019e4340ff07a5db21 = L.marker(
+                [43.6158, 13.5189],
+                {}
+            ).addTo(map_3d5297916f34f5068ea24cc277149da5);
+        
+    
+            var icon_4b7d888f1a31fd732db7299ae890ff42 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "car", "iconColor": "white", "markerColor": "green", "prefix": "fa"}
+            );
+            marker_28cd8581ce5bcc019e4340ff07a5db21.setIcon(icon_4b7d888f1a31fd732db7299ae890ff42);
+        
+    
+        var popup_547579a87ce9431f9c968a096ec2e5bc = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_f52041e3215bd05b7aa1f47cceb689a4 = $(`<div id="html_f52041e3215bd05b7aa1f47cceb689a4" style="width: 100.0%; height: 100.0%;">                       <img src=https://snos.ro/media/cities/ancona.jpg                       class="img_city" alt="image_city">                       <h3 class='title_city'>Ancona (Italy) <img src=https://snos.ro/media/flags/ITALY.GIF                       class="img_flag" alt="img_flag"></h3>                        <h5 class='last_visit'>last visit: Jul - 2010</h4>                       </div>`)[0];
+                popup_547579a87ce9431f9c968a096ec2e5bc.setContent(html_f52041e3215bd05b7aa1f47cceb689a4);
+            
+        
+
+        marker_28cd8581ce5bcc019e4340ff07a5db21.bindPopup(popup_547579a87ce9431f9c968a096ec2e5bc)
+        ;
+
+        
+    
+    
+            var marker_f0e52b48745502fc9777b45260e22c56 = L.marker(
+                [53.4084, -2.9916],
+                {}
+            ).addTo(map_3d5297916f34f5068ea24cc277149da5);
+        
+    
+            var icon_a7933d91a5c2cd4897be6a566cdcdcad = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "car", "iconColor": "white", "markerColor": "green", "prefix": "fa"}
+            );
+            marker_f0e52b48745502fc9777b45260e22c56.setIcon(icon_a7933d91a5c2cd4897be6a566cdcdcad);
+        
+    
+        var popup_0aa41315c985765b8d74101d0bf5ba25 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_b483156d3e565fd87453fe32134e6bee = $(`<div id="html_b483156d3e565fd87453fe32134e6bee" style="width: 100.0%; height: 100.0%;">                       <img src=https://snos.ro/media/cities/liverpool.JPG                       class="img_city" alt="image_city">                       <h3 class='title_city'>Liverpool (England) <img src=https://snos.ro/media/flags/england.jpg                       class="img_flag" alt="img_flag"></h3>                        <h5 class='last_visit'>last visit: Jun - 2023</h4>                       </div>`)[0];
+                popup_0aa41315c985765b8d74101d0bf5ba25.setContent(html_b483156d3e565fd87453fe32134e6bee);
+            
+        
+
+        marker_f0e52b48745502fc9777b45260e22c56.bindPopup(popup_0aa41315c985765b8d74101d0bf5ba25)
+        ;
+
+        
+    
+    
+            var marker_c26a6e8f4e0ce267aa273c9f72df3d0e = L.marker(
+                [52.3676, 4.9041],
+                {}
+            ).addTo(map_3d5297916f34f5068ea24cc277149da5);
+        
+    
+            var icon_99b84615d094ceb21ed6f437df5dd5b9 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "plane", "iconColor": "white", "markerColor": "green", "prefix": "fa"}
+            );
+            marker_c26a6e8f4e0ce267aa273c9f72df3d0e.setIcon(icon_99b84615d094ceb21ed6f437df5dd5b9);
+        
+    
+        var popup_0db1e79ffb3fc03076643314045630d5 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_85e77e20735716873daddcb9c473eb69 = $(`<div id="html_85e77e20735716873daddcb9c473eb69" style="width: 100.0%; height: 100.0%;">                       <img src=https://snos.ro/media/cities/amsterdam.JPG                       class="img_city" alt="image_city">                       <h3 class='title_city'>Amsterdam (Netherlands) <img src=https://snos.ro/media/flags/NED.GIF                       class="img_flag" alt="img_flag"></h3>                        <h5 class='last_visit'>last visit: Jul - 2010</h4>                       </div>`)[0];
+                popup_0db1e79ffb3fc03076643314045630d5.setContent(html_85e77e20735716873daddcb9c473eb69);
+            
+        
+
+        marker_c26a6e8f4e0ce267aa273c9f72df3d0e.bindPopup(popup_0db1e79ffb3fc03076643314045630d5)
+        ;
+
+        
+    
+    
+            var marker_bf880419b5b9a330dd64b7f6c572ef3c = L.marker(
+                [45.7678, 22.9072],
+                {}
+            ).addTo(map_3d5297916f34f5068ea24cc277149da5);
+        
+    
+            var icon_c0b1581ce2d8b7de5fa271767e9add16 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "car", "iconColor": "white", "markerColor": "green", "prefix": "fa"}
+            );
+            marker_bf880419b5b9a330dd64b7f6c572ef3c.setIcon(icon_c0b1581ce2d8b7de5fa271767e9add16);
+        
+    
+        var popup_d1742450fcf5a9689db55a9d26479d09 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_a58a5fde0cb1d4322eabebbf495aea4a = $(`<div id="html_a58a5fde0cb1d4322eabebbf495aea4a" style="width: 100.0%; height: 100.0%;">                       <img src=https://snos.ro/media/cities/romania/hunedoara.JPG                       class="img_city" alt="image_city">                       <h3 class='title_city'>Hunedoara (România) <img src=https://snos.ro/media/flags/ROMANIA.GIF                       class="img_flag" alt="img_flag"></h3>                        <h5 class='last_visit'>last visit: Jul - 2023</h4>                       </div>`)[0];
+                popup_d1742450fcf5a9689db55a9d26479d09.setContent(html_a58a5fde0cb1d4322eabebbf495aea4a);
+            
+        
+
+        marker_bf880419b5b9a330dd64b7f6c572ef3c.bindPopup(popup_d1742450fcf5a9689db55a9d26479d09)
+        ;
+
+        
+    
+    
+            var marker_cb461351614cc0f0397625732320e433 = L.marker(
+                [45.0314, 23.2689],
+                {}
+            ).addTo(map_3d5297916f34f5068ea24cc277149da5);
+        
+    
+            var icon_9df979854eb5daeccfd1117ff4fa04de = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "car", "iconColor": "white", "markerColor": "green", "prefix": "fa"}
+            );
+            marker_cb461351614cc0f0397625732320e433.setIcon(icon_9df979854eb5daeccfd1117ff4fa04de);
+        
+    
+        var popup_41b252d60a560758042611465f4a9f1f = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_0ee31638e53fdc2609b48a7ebbc3253d = $(`<div id="html_0ee31638e53fdc2609b48a7ebbc3253d" style="width: 100.0%; height: 100.0%;">                       <img src=https://snos.ro/media/cities/romania/targujiu.jpg                       class="img_city" alt="image_city">                       <h3 class='title_city'>Târgu Jiu (România) <img src=https://snos.ro/media/flags/ROMANIA.GIF                       class="img_flag" alt="img_flag"></h3>                        <h5 class='last_visit'>last visit: Aug - 2019</h4>                       </div>`)[0];
+                popup_41b252d60a560758042611465f4a9f1f.setContent(html_0ee31638e53fdc2609b48a7ebbc3253d);
+            
+        
+
+        marker_cb461351614cc0f0397625732320e433.bindPopup(popup_41b252d60a560758042611465f4a9f1f)
+        ;
+
+        
+    
+    
+            var marker_d7413a6775e69868f38c9b69323b60aa = L.marker(
+                [45.8663, 22.9144],
+                {}
+            ).addTo(map_3d5297916f34f5068ea24cc277149da5);
+        
+    
+            var icon_2c9e0c8adcffcd48a5ba16f264c0c33a = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "car", "iconColor": "white", "markerColor": "green", "prefix": "fa"}
+            );
+            marker_d7413a6775e69868f38c9b69323b60aa.setIcon(icon_2c9e0c8adcffcd48a5ba16f264c0c33a);
+        
+    
+        var popup_8106ee64495b3e4005fb3bc4470622ef = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_86040bd57ffe4fd2d2654e3a4102c9d9 = $(`<div id="html_86040bd57ffe4fd2d2654e3a4102c9d9" style="width: 100.0%; height: 100.0%;">                       <img src=https://snos.ro/media/cities/romania/deva.jpeg                       class="img_city" alt="image_city">                       <h3 class='title_city'>Deva (România) <img src=https://snos.ro/media/flags/ROMANIA.GIF                       class="img_flag" alt="img_flag"></h3>                        <h5 class='last_visit'>last visit: Aug - 2019</h4>                       </div>`)[0];
+                popup_8106ee64495b3e4005fb3bc4470622ef.setContent(html_86040bd57ffe4fd2d2654e3a4102c9d9);
+            
+        
+
+        marker_d7413a6775e69868f38c9b69323b60aa.bindPopup(popup_8106ee64495b3e4005fb3bc4470622ef)
+        ;
+
+        
+    
+    
+            var marker_78e60aaebd55102eaf1fbe252c01c3c4 = L.marker(
+                [45.8035, 24.145],
+                {}
+            ).addTo(map_3d5297916f34f5068ea24cc277149da5);
+        
+    
+            var icon_bb5bbe8d08ddffa8df23a39a937c61f1 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "car", "iconColor": "white", "markerColor": "green", "prefix": "fa"}
+            );
+            marker_78e60aaebd55102eaf1fbe252c01c3c4.setIcon(icon_bb5bbe8d08ddffa8df23a39a937c61f1);
+        
+    
+        var popup_acab1519c7b6eab4716a52f761ce47b0 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_790bc7dc20a4c2c17ccf16b3523a970a = $(`<div id="html_790bc7dc20a4c2c17ccf16b3523a970a" style="width: 100.0%; height: 100.0%;">                       <img src=https://snos.ro/media/cities/romania/sibiu.jpg                       class="img_city" alt="image_city">                       <h3 class='title_city'>Sibiu (România) <img src=https://snos.ro/media/flags/ROMANIA.GIF                       class="img_flag" alt="img_flag"></h3>                        <h5 class='last_visit'>last visit: Iul - 2023</h4>                       </div>`)[0];
+                popup_acab1519c7b6eab4716a52f761ce47b0.setContent(html_790bc7dc20a4c2c17ccf16b3523a970a);
+            
+        
+
+        marker_78e60aaebd55102eaf1fbe252c01c3c4.bindPopup(popup_acab1519c7b6eab4716a52f761ce47b0)
+        ;
+
+        
+    
+    
+            var marker_113331c3c2c9b6f15f48e1945bc2c893 = L.marker(
+                [45.6427, 25.5887],
+                {}
+            ).addTo(map_3d5297916f34f5068ea24cc277149da5);
+        
+    
+            var icon_67efd0dec81df610ac410570c58ea7a6 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "car", "iconColor": "white", "markerColor": "green", "prefix": "fa"}
+            );
+            marker_113331c3c2c9b6f15f48e1945bc2c893.setIcon(icon_67efd0dec81df610ac410570c58ea7a6);
+        
+    
+        var popup_e5ad7fe61212f0021e113715b06cb2e2 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_c194f935a37833b31773084e53888a98 = $(`<div id="html_c194f935a37833b31773084e53888a98" style="width: 100.0%; height: 100.0%;">                       <img src=https://snos.ro/media/cities/romania/brasov.JPG                       class="img_city" alt="image_city">                       <h3 class='title_city'>Brașov (România) <img src=https://snos.ro/media/flags/ROMANIA.GIF                       class="img_flag" alt="img_flag"></h3>                        <h5 class='last_visit'>last visit: Ian - 2023</h4>                       </div>`)[0];
+                popup_e5ad7fe61212f0021e113715b06cb2e2.setContent(html_c194f935a37833b31773084e53888a98);
+            
+        
+
+        marker_113331c3c2c9b6f15f48e1945bc2c893.bindPopup(popup_e5ad7fe61212f0021e113715b06cb2e2)
+        ;
+
+        
+    
+    
+            var marker_2ce3c21c62982b907db6fb65bc159f5c = L.marker(
+                [45.2652, 27.9595],
+                {}
+            ).addTo(map_3d5297916f34f5068ea24cc277149da5);
+        
+    
+            var icon_b5e19f017751bd71ebf2359fee034d9b = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "car", "iconColor": "white", "markerColor": "green", "prefix": "fa"}
+            );
+            marker_2ce3c21c62982b907db6fb65bc159f5c.setIcon(icon_b5e19f017751bd71ebf2359fee034d9b);
+        
+    
+        var popup_97933ea23a98da0df046b07c92bc909a = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_3effe5f4ca6da560fb3437daf9bda0d1 = $(`<div id="html_3effe5f4ca6da560fb3437daf9bda0d1" style="width: 100.0%; height: 100.0%;">                       <img src=https://snos.ro/media/cities/romania/braila.jpg                       class="img_city" alt="image_city">                       <h3 class='title_city'>Brăila (România) <img src=https://snos.ro/media/flags/ROMANIA.GIF                       class="img_flag" alt="img_flag"></h3>                        <h5 class='last_visit'>last visit: Iul - 2023</h4>                       </div>`)[0];
+                popup_97933ea23a98da0df046b07c92bc909a.setContent(html_3effe5f4ca6da560fb3437daf9bda0d1);
+            
+        
+
+        marker_2ce3c21c62982b907db6fb65bc159f5c.bindPopup(popup_97933ea23a98da0df046b07c92bc909a)
+        ;
+
+        
+    
+    
+            var marker_b647754e5679cb5671fb1b8b4fade47d = L.marker(
+                [46.0733, 23.5805],
+                {}
+            ).addTo(map_3d5297916f34f5068ea24cc277149da5);
+        
+    
+            var icon_e90240ce35b49e46c8bcc86c097c47b9 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "car", "iconColor": "white", "markerColor": "green", "prefix": "fa"}
+            );
+            marker_b647754e5679cb5671fb1b8b4fade47d.setIcon(icon_e90240ce35b49e46c8bcc86c097c47b9);
+        
+    
+        var popup_b659c277c91bcf2b24a0cf3f7aee14c8 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_dab9d9ade8322ff747c1c5482912b105 = $(`<div id="html_dab9d9ade8322ff747c1c5482912b105" style="width: 100.0%; height: 100.0%;">                       <img src=https://snos.ro/media/cities/romania/albaiulia.JPG                       class="img_city" alt="image_city">                       <h3 class='title_city'>Alba Iulia (România) <img src=https://snos.ro/media/flags/ROMANIA.GIF                       class="img_flag" alt="img_flag"></h3>                        <h5 class='last_visit'>last visit: Iul - 2022</h4>                       </div>`)[0];
+                popup_b659c277c91bcf2b24a0cf3f7aee14c8.setContent(html_dab9d9ade8322ff747c1c5482912b105);
+            
+        
+
+        marker_b647754e5679cb5671fb1b8b4fade47d.bindPopup(popup_b659c277c91bcf2b24a0cf3f7aee14c8)
+        ;
+
+        
+    
+    
+            var marker_55ba8ed09af09a6fd1dbd6429c1b2967 = L.marker(
+                [47.0465, 21.9189],
+                {}
+            ).addTo(map_3d5297916f34f5068ea24cc277149da5);
+        
+    
+            var icon_d1b91fdf8ef540b9e5c9589f3bb87a33 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "car", "iconColor": "white", "markerColor": "green", "prefix": "fa"}
+            );
+            marker_55ba8ed09af09a6fd1dbd6429c1b2967.setIcon(icon_d1b91fdf8ef540b9e5c9589f3bb87a33);
+        
+    
+        var popup_9e6669dcd235b963a8acddf58c0c3b2c = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_53b3bf8344791d39c5776f0fe447d67e = $(`<div id="html_53b3bf8344791d39c5776f0fe447d67e" style="width: 100.0%; height: 100.0%;">                       <img src=https://snos.ro/media/cities/romania/oradea.JPG                       class="img_city" alt="image_city">                       <h3 class='title_city'>Oradea (România) <img src=https://snos.ro/media/flags/ROMANIA.GIF                       class="img_flag" alt="img_flag"></h3>                        <h5 class='last_visit'>last visit: May - 2021</h4>                       </div>`)[0];
+                popup_9e6669dcd235b963a8acddf58c0c3b2c.setContent(html_53b3bf8344791d39c5776f0fe447d67e);
+            
+        
+
+        marker_55ba8ed09af09a6fd1dbd6429c1b2967.bindPopup(popup_9e6669dcd235b963a8acddf58c0c3b2c)
+        ;
+
+        
+    
+    
+            var marker_884f609e6b1d26227a021fb079970304 = L.marker(
+                [46.1866, 21.3123],
+                {}
+            ).addTo(map_3d5297916f34f5068ea24cc277149da5);
+        
+    
+            var icon_3b536de2eaa12d2c8410e873376862b3 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "car", "iconColor": "white", "markerColor": "green", "prefix": "fa"}
+            );
+            marker_884f609e6b1d26227a021fb079970304.setIcon(icon_3b536de2eaa12d2c8410e873376862b3);
+        
+    
+        var popup_b31971d5ef2a40385dafc220778c0273 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_67dd9eb8e1ae02d5fc966ba053eecefd = $(`<div id="html_67dd9eb8e1ae02d5fc966ba053eecefd" style="width: 100.0%; height: 100.0%;">                       <img src=https://snos.ro/media/cities/romania/arad.jpg                       class="img_city" alt="image_city">                       <h3 class='title_city'>Arad (România) <img src=https://snos.ro/media/flags/ROMANIA.GIF                       class="img_flag" alt="img_flag"></h3>                        <h5 class='last_visit'>last visit: Iul - 2011</h4>                       </div>`)[0];
+                popup_b31971d5ef2a40385dafc220778c0273.setContent(html_67dd9eb8e1ae02d5fc966ba053eecefd);
+            
+        
+
+        marker_884f609e6b1d26227a021fb079970304.bindPopup(popup_b31971d5ef2a40385dafc220778c0273)
+        ;
+
+        
+    
+    
+            var marker_f276723b2014b15ba3d04fde710032f2 = L.marker(
+                [45.4353, 28.008],
+                {}
+            ).addTo(map_3d5297916f34f5068ea24cc277149da5);
+        
+    
+            var icon_9cccff0dcfa58c2c22cc27e9485b449f = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "car", "iconColor": "white", "markerColor": "green", "prefix": "fa"}
+            );
+            marker_f276723b2014b15ba3d04fde710032f2.setIcon(icon_9cccff0dcfa58c2c22cc27e9485b449f);
+        
+    
+        var popup_c356af73078324735aa3d61e1993f38c = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_2d34bd53c789df6390cac534575a4b68 = $(`<div id="html_2d34bd53c789df6390cac534575a4b68" style="width: 100.0%; height: 100.0%;">                       <img src=https://snos.ro/media/cities/romania/galati.jpg                       class="img_city" alt="image_city">                       <h3 class='title_city'>Galați (România) <img src=https://snos.ro/media/flags/ROMANIA.GIF                       class="img_flag" alt="img_flag"></h3>                        <h5 class='last_visit'>last visit: Iul - 2023</h4>                       </div>`)[0];
+                popup_c356af73078324735aa3d61e1993f38c.setContent(html_2d34bd53c789df6390cac534575a4b68);
+            
+        
+
+        marker_f276723b2014b15ba3d04fde710032f2.bindPopup(popup_c356af73078324735aa3d61e1993f38c)
+        ;
+
+        
+    
+    
+            var marker_1a0efecca8fc4f84ff162bf9fb98cec6 = L.marker(
+                [44.4268, 26.1025],
+                {}
+            ).addTo(map_3d5297916f34f5068ea24cc277149da5);
+        
+    
+            var icon_f5063dafc5cc1935ba04519babec46a5 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "car", "iconColor": "white", "markerColor": "green", "prefix": "fa"}
+            );
+            marker_1a0efecca8fc4f84ff162bf9fb98cec6.setIcon(icon_f5063dafc5cc1935ba04519babec46a5);
+        
+    
+        var popup_4b5d047797faa46d77a8edc2e398d500 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_641b47ecefee952cd420a1a35130ef0a = $(`<div id="html_641b47ecefee952cd420a1a35130ef0a" style="width: 100.0%; height: 100.0%;">                       <img src=https://snos.ro/media/cities/romania/bucuresti.jpg                       class="img_city" alt="image_city">                       <h3 class='title_city'>București (România) <img src=https://snos.ro/media/flags/ROMANIA.GIF                       class="img_flag" alt="img_flag"></h3>                        <h5 class='last_visit'>last visit: Iul - 2023</h4>                       </div>`)[0];
+                popup_4b5d047797faa46d77a8edc2e398d500.setContent(html_641b47ecefee952cd420a1a35130ef0a);
+            
+        
+
+        marker_1a0efecca8fc4f84ff162bf9fb98cec6.bindPopup(popup_4b5d047797faa46d77a8edc2e398d500)
+        ;
+
+        
+    
+    
+            var marker_00d18e3412a5d18d62e8598645a648b1 = L.marker(
+                [44.1917, 28.6233],
+                {}
+            ).addTo(map_3d5297916f34f5068ea24cc277149da5);
+        
+    
+            var icon_1c660c95f7e3afe8ee5a1208e02422aa = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "car", "iconColor": "white", "markerColor": "green", "prefix": "fa"}
+            );
+            marker_00d18e3412a5d18d62e8598645a648b1.setIcon(icon_1c660c95f7e3afe8ee5a1208e02422aa);
+        
+    
+        var popup_b8c312fa12bd37c24f98cee1fdacdb80 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_67b3716961dc36893c6b368c39be0f24 = $(`<div id="html_67b3716961dc36893c6b368c39be0f24" style="width: 100.0%; height: 100.0%;">                       <img src=https://snos.ro/media/cities/romania/constanta.JPG                       class="img_city" alt="image_city">                       <h3 class='title_city'>Constanța (România) <img src=https://snos.ro/media/flags/ROMANIA.GIF                       class="img_flag" alt="img_flag"></h3>                        <h5 class='last_visit'>last visit: Aug - 2023</h4>                       </div>`)[0];
+                popup_b8c312fa12bd37c24f98cee1fdacdb80.setContent(html_67b3716961dc36893c6b368c39be0f24);
+            
+        
+
+        marker_00d18e3412a5d18d62e8598645a648b1.bindPopup(popup_b8c312fa12bd37c24f98cee1fdacdb80)
+        ;
+
+        
+    
+    
+            var marker_ff47801ef365a27ef469a61acb275f4e = L.marker(
+                [46.6407, 27.7276],
+                {}
+            ).addTo(map_3d5297916f34f5068ea24cc277149da5);
+        
+    
+            var icon_004e244d883f670333e12ce51f4e4f84 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "car", "iconColor": "white", "markerColor": "green", "prefix": "fa"}
+            );
+            marker_ff47801ef365a27ef469a61acb275f4e.setIcon(icon_004e244d883f670333e12ce51f4e4f84);
+        
+    
+        var popup_bd4e5593562cd8712024661cf26a2764 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_96ee1153fdf9cc2b48167c725c0e5eac = $(`<div id="html_96ee1153fdf9cc2b48167c725c0e5eac" style="width: 100.0%; height: 100.0%;">                       <img src=https://snos.ro/media/cities/romania/vaslui.jpg                       class="img_city" alt="image_city">                       <h3 class='title_city'>Vaslui (România) <img src=https://snos.ro/media/flags/ROMANIA.GIF                       class="img_flag" alt="img_flag"></h3>                        <h5 class='last_visit'>last visit: Iul - 2023</h4>                       </div>`)[0];
+                popup_bd4e5593562cd8712024661cf26a2764.setContent(html_96ee1153fdf9cc2b48167c725c0e5eac);
+            
+        
+
+        marker_ff47801ef365a27ef469a61acb275f4e.bindPopup(popup_bd4e5593562cd8712024661cf26a2764)
+        ;
+
+        
+    
+    
+            var marker_44f0d9e2436ffff752f76165abf1a78d = L.marker(
+                [47.1585, 27.6014],
+                {}
+            ).addTo(map_3d5297916f34f5068ea24cc277149da5);
+        
+    
+            var icon_3e5d82878fcb197a45c650cd5aa36f0d = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "car", "iconColor": "white", "markerColor": "green", "prefix": "fa"}
+            );
+            marker_44f0d9e2436ffff752f76165abf1a78d.setIcon(icon_3e5d82878fcb197a45c650cd5aa36f0d);
+        
+    
+        var popup_47634dadacc08524d0517dd859cae88f = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_ce626cf8c60d494d5080e7ce7d04d0b4 = $(`<div id="html_ce626cf8c60d494d5080e7ce7d04d0b4" style="width: 100.0%; height: 100.0%;">                       <img src=https://snos.ro/media/cities/romania/iasi.jpeg                       class="img_city" alt="image_city">                       <h3 class='title_city'>Iași (România) <img src=https://snos.ro/media/flags/ROMANIA.GIF                       class="img_flag" alt="img_flag"></h3>                        <h5 class='last_visit'>last visit: Iul - 2023</h4>                       </div>`)[0];
+                popup_47634dadacc08524d0517dd859cae88f.setContent(html_ce626cf8c60d494d5080e7ce7d04d0b4);
+            
+        
+
+        marker_44f0d9e2436ffff752f76165abf1a78d.bindPopup(popup_47634dadacc08524d0517dd859cae88f)
+        ;
+
+        
+    
+    
+            var marker_d1a3bf31ca517f1fbe15d6a8f2a977ef = L.marker(
+                [47.6635, 26.2732],
+                {}
+            ).addTo(map_3d5297916f34f5068ea24cc277149da5);
+        
+    
+            var icon_dcfbd3d0fab026b99efcac4df58a7189 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "car", "iconColor": "white", "markerColor": "green", "prefix": "fa"}
+            );
+            marker_d1a3bf31ca517f1fbe15d6a8f2a977ef.setIcon(icon_dcfbd3d0fab026b99efcac4df58a7189);
+        
+    
+        var popup_a07adbba6fad19e0ce92fe78cb05314e = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_c20039aff42d37d9b60a0864ef2636b2 = $(`<div id="html_c20039aff42d37d9b60a0864ef2636b2" style="width: 100.0%; height: 100.0%;">                       <img src=https://snos.ro/media/cities/romania/suceava.JPG                       class="img_city" alt="image_city">                       <h3 class='title_city'>Suceava (România) <img src=https://snos.ro/media/flags/ROMANIA.GIF                       class="img_flag" alt="img_flag"></h3>                        <h5 class='last_visit'>last visit: Sep - 2022</h4>                       </div>`)[0];
+                popup_a07adbba6fad19e0ce92fe78cb05314e.setContent(html_c20039aff42d37d9b60a0864ef2636b2);
+            
+        
+
+        marker_d1a3bf31ca517f1fbe15d6a8f2a977ef.bindPopup(popup_a07adbba6fad19e0ce92fe78cb05314e)
+        ;
+
+        
+    
+    
+            var marker_dd2672abc6cc656d647f954740e00622 = L.marker(
+                [47.6738, 23.7456],
+                {}
+            ).addTo(map_3d5297916f34f5068ea24cc277149da5);
+        
+    
+            var icon_0077949156bcad81301611f8c6ab3857 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "car", "iconColor": "white", "markerColor": "green", "prefix": "fa"}
+            );
+            marker_dd2672abc6cc656d647f954740e00622.setIcon(icon_0077949156bcad81301611f8c6ab3857);
+        
+    
+        var popup_40fd3176c02b459838ea751d535627d6 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_cf7a8161786df25da678ceb662ab5e5f = $(`<div id="html_cf7a8161786df25da678ceb662ab5e5f" style="width: 100.0%; height: 100.0%;">                       <img src=https://snos.ro/media/cities/romania/maramures.JPG                       class="img_city" alt="image_city">                       <h3 class='title_city'>Maramureș (România) <img src=https://snos.ro/media/flags/ROMANIA.GIF                       class="img_flag" alt="img_flag"></h3>                        <h5 class='last_visit'>last visit: Aug - 2018</h4>                       </div>`)[0];
+                popup_40fd3176c02b459838ea751d535627d6.setContent(html_cf7a8161786df25da678ceb662ab5e5f);
+            
+        
+
+        marker_dd2672abc6cc656d647f954740e00622.bindPopup(popup_40fd3176c02b459838ea751d535627d6)
+        ;
+
+        
+    
+    
+            var marker_d347a0074ec4e51bca29d916350aff9a = L.marker(
+                [44.6369, 22.6597],
+                {}
+            ).addTo(map_3d5297916f34f5068ea24cc277149da5);
+        
+    
+            var icon_16d5ce05ef79823486c101abf60e4cdc = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "car", "iconColor": "white", "markerColor": "green", "prefix": "fa"}
+            );
+            marker_d347a0074ec4e51bca29d916350aff9a.setIcon(icon_16d5ce05ef79823486c101abf60e4cdc);
+        
+    
+        var popup_3f57ccd6a39a6f51369cfcfbc3dc8976 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_ef01bacb59e19124a6b3ffeb6010b860 = $(`<div id="html_ef01bacb59e19124a6b3ffeb6010b860" style="width: 100.0%; height: 100.0%;">                       <img src=https://snos.ro/media/cities/romania/drobeta.jpeg                       class="img_city" alt="image_city">                       <h3 class='title_city'>Drobeta-Turnu Severin (România) <img src=https://snos.ro/media/flags/ROMANIA.GIF                       class="img_flag" alt="img_flag"></h3>                        <h5 class='last_visit'>last visit: Aug - 2019</h4>                       </div>`)[0];
+                popup_3f57ccd6a39a6f51369cfcfbc3dc8976.setContent(html_ef01bacb59e19124a6b3ffeb6010b860);
+            
+        
+
+        marker_d347a0074ec4e51bca29d916350aff9a.bindPopup(popup_3f57ccd6a39a6f51369cfcfbc3dc8976)
+        ;
+
+        
+    
+    
+            var marker_8749f60c0c548c814d5a63f8c8414332 = L.marker(
+                [46.567, 26.9146],
+                {}
+            ).addTo(map_3d5297916f34f5068ea24cc277149da5);
+        
+    
+            var icon_4b13082a2fdea4401ac6085b25a697de = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "car", "iconColor": "white", "markerColor": "green", "prefix": "fa"}
+            );
+            marker_8749f60c0c548c814d5a63f8c8414332.setIcon(icon_4b13082a2fdea4401ac6085b25a697de);
+        
+    
+        var popup_99cfd0bafd119552c22b30472eebc02b = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_6d780fdb332b61cf4e235968ed853d4f = $(`<div id="html_6d780fdb332b61cf4e235968ed853d4f" style="width: 100.0%; height: 100.0%;">                       <img src=https://snos.ro/media/cities/romania/bacau.jpeg                       class="img_city" alt="image_city">                       <h3 class='title_city'>Bacău (România) <img src=https://snos.ro/media/flags/ROMANIA.GIF                       class="img_flag" alt="img_flag"></h3>                        <h5 class='last_visit'>last visit: May - 2021</h4>                       </div>`)[0];
+                popup_99cfd0bafd119552c22b30472eebc02b.setContent(html_6d780fdb332b61cf4e235968ed853d4f);
+            
+        
+
+        marker_8749f60c0c548c814d5a63f8c8414332.bindPopup(popup_99cfd0bafd119552c22b30472eebc02b)
+        ;
+
+        
+    
+    
+            var marker_74ba242da5c638d685b1ccb76c098396 = L.marker(
+                [45.1371, 26.8171],
+                {}
+            ).addTo(map_3d5297916f34f5068ea24cc277149da5);
+        
+    
+            var icon_093956663a13f593282aee40513a64d3 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "car", "iconColor": "white", "markerColor": "green", "prefix": "fa"}
+            );
+            marker_74ba242da5c638d685b1ccb76c098396.setIcon(icon_093956663a13f593282aee40513a64d3);
+        
+    
+        var popup_1daf54d14c165eba5ebbe551ecd59211 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_d3dad9523d6a3bb4c77a579343c7d181 = $(`<div id="html_d3dad9523d6a3bb4c77a579343c7d181" style="width: 100.0%; height: 100.0%;">                       <img src=https://snos.ro/media/cities/romania/buzau.jpg                       class="img_city" alt="image_city">                       <h3 class='title_city'>Buzău (România) <img src=https://snos.ro/media/flags/ROMANIA.GIF                       class="img_flag" alt="img_flag"></h3>                        <h5 class='last_visit'>last visit: May - 2021</h4>                       </div>`)[0];
+                popup_1daf54d14c165eba5ebbe551ecd59211.setContent(html_d3dad9523d6a3bb4c77a579343c7d181);
+            
+        
+
+        marker_74ba242da5c638d685b1ccb76c098396.bindPopup(popup_1daf54d14c165eba5ebbe551ecd59211)
+        ;
+
+        
+    
+    
+            var marker_97c974bcebb7133b32ac3b35fe57d82f = L.marker(
+                [46.93, 26.378],
+                {}
+            ).addTo(map_3d5297916f34f5068ea24cc277149da5);
+        
+    
+            var icon_90eea16662ee6c1fdec68214516aa876 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "car", "iconColor": "white", "markerColor": "green", "prefix": "fa"}
+            );
+            marker_97c974bcebb7133b32ac3b35fe57d82f.setIcon(icon_90eea16662ee6c1fdec68214516aa876);
+        
+    
+        var popup_2eca4f47ec36f877b5fcb7b9518e9c92 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_f4af22ec31ce413ec1fcb253bdea0841 = $(`<div id="html_f4af22ec31ce413ec1fcb253bdea0841" style="width: 100.0%; height: 100.0%;">                       <img src=https://snos.ro/media/cities/romania/piatraneamt.JPG                       class="img_city" alt="image_city">                       <h3 class='title_city'>Piatra Neamț (România) <img src=https://snos.ro/media/flags/ROMANIA.GIF                       class="img_flag" alt="img_flag"></h3>                        <h5 class='last_visit'>last visit: Jul - 2022</h4>                       </div>`)[0];
+                popup_2eca4f47ec36f877b5fcb7b9518e9c92.setContent(html_f4af22ec31ce413ec1fcb253bdea0841);
+            
+        
+
+        marker_97c974bcebb7133b32ac3b35fe57d82f.bindPopup(popup_2eca4f47ec36f877b5fcb7b9518e9c92)
+        ;
+
+        
+    
+    
+            var marker_a9c931d712a3768e2047da3b70405e93 = L.marker(
+                [44.8565, 24.8692],
+                {}
+            ).addTo(map_3d5297916f34f5068ea24cc277149da5);
+        
+    
+            var icon_cee92dea7c32bfa1ce289558529f5f8e = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "car", "iconColor": "white", "markerColor": "green", "prefix": "fa"}
+            );
+            marker_a9c931d712a3768e2047da3b70405e93.setIcon(icon_cee92dea7c32bfa1ce289558529f5f8e);
+        
+    
+        var popup_11baedeb0b6c70fcda9bd5b039341505 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_0467c3a179f328d13b8e3a98a17a0ff9 = $(`<div id="html_0467c3a179f328d13b8e3a98a17a0ff9" style="width: 100.0%; height: 100.0%;">                       <img src=https://snos.ro/media/cities/romania/pitesti.jpg                       class="img_city" alt="image_city">                       <h3 class='title_city'>Pitești (România) <img src=https://snos.ro/media/flags/ROMANIA.GIF                       class="img_flag" alt="img_flag"></h3>                        <h5 class='last_visit'>last visit: Jul - 2023</h4>                       </div>`)[0];
+                popup_11baedeb0b6c70fcda9bd5b039341505.setContent(html_0467c3a179f328d13b8e3a98a17a0ff9);
+            
+        
+
+        marker_a9c931d712a3768e2047da3b70405e93.bindPopup(popup_11baedeb0b6c70fcda9bd5b039341505)
+        ;
+
+        
+    
+    
+            var marker_6dbf93fe673954bdb4a75dc07b561c44 = L.marker(
+                [45.1716, 28.7914],
+                {}
+            ).addTo(map_3d5297916f34f5068ea24cc277149da5);
+        
+    
+            var icon_966bc1ed9a571643a70c68dec9530a1d = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "car", "iconColor": "white", "markerColor": "green", "prefix": "fa"}
+            );
+            marker_6dbf93fe673954bdb4a75dc07b561c44.setIcon(icon_966bc1ed9a571643a70c68dec9530a1d);
+        
+    
+        var popup_3de692ea04d94e5910de8b3729c69608 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_68c701002af69255a9a2c977f6607a31 = $(`<div id="html_68c701002af69255a9a2c977f6607a31" style="width: 100.0%; height: 100.0%;">                       <img src=https://snos.ro/media/cities/romania/tulcea.JPG                       class="img_city" alt="image_city">                       <h3 class='title_city'>Tulcea (România) <img src=https://snos.ro/media/flags/ROMANIA.GIF                       class="img_flag" alt="img_flag"></h3>                        <h5 class='last_visit'>last visit: May - 2022</h4>                       </div>`)[0];
+                popup_3de692ea04d94e5910de8b3729c69608.setContent(html_68c701002af69255a9a2c977f6607a31);
+            
+        
+
+        marker_6dbf93fe673954bdb4a75dc07b561c44.bindPopup(popup_3de692ea04d94e5910de8b3729c69608)
+        ;
+
+        
+    
+</script>
+</html>
